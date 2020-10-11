@@ -19,7 +19,7 @@ public class Controller extends HttpServlet {
     private PersonService service = new PersonService();
     private HandlerFactory handlerFactory = new HandlerFactory();
 
-    public Controller() {
+    public Controller() throws IllegalAccessException {
         super();
     }
 
@@ -39,8 +39,8 @@ public class Controller extends HttpServlet {
                 RequestHandler handler = handlerFactory.getHandler(command, service);
                 destination = handler.handleRequest(request, response);
             } catch (Exception exc) {
-                request.setAttribute("error", exc.getMessage());
-                destination = "error.jsp";
+                request.setAttribute("result", exc.getMessage());
+                destination = "register.jsp";
             }
         }
         request.getRequestDispatcher(destination).forward(request, response);

@@ -9,15 +9,17 @@ public class Person {
 	private String password;
 	private String firstName;
 	private String lastName;
+	private String fitness;
 
-	public Person(String userid, String email, String password, String firstName, String lastName) {
+	public Person(String userid, String email, String password, String firstName, String lastName, String fitness) throws IllegalAccessException {
 		setUserid(userid);
 		setEmail(email);
 		setPassword(password);
 		setFirstName(firstName);
 		setLastName(lastName);
+		setFitness(fitness);
 	}
-	
+
 	public Person() {
 	}
 
@@ -92,7 +94,18 @@ public class Person {
 		}
 		this.lastName = lastName;
 	}
-	
+
+	public void setFitness(String fitness) throws IllegalAccessException {
+		if(fitness == null) {
+			throw new IllegalAccessException("No fitness given");
+		}
+		this.fitness = fitness;
+	}
+
+	public String getFitness() {
+		return fitness;
+	}
+
 	@Override
 	public String toString(){
 		return getFirstName() + " " + getLastName() + ": " + getUserid() + ", " + getEmail();

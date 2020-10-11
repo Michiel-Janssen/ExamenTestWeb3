@@ -11,75 +11,96 @@ import java.util.List;
 public class Register extends RequestHandler {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        ArrayList<String> errors = new ArrayList<String>();
-
+        List<String> result = new ArrayList<String>();
         Person person = new Person();
 
-        setUserid(person, request, errors);
-        setFirstName(person, request, errors);
-        setLastName(person, request, errors);
-        setEmail(person, request, errors);
-        setPassword(person, request, errors);
+        setUserId(person, request, result);
+        setFirstName(person, request, result);
+        setLastName(person, request, result);
+        setEmail(person, request, result);
+        setPassword(person, request, result);
+        setFitness(person, request, result);
 
-        if (errors.size() == 0) {
-            try {
-                service.add(person);
-                return "index.jsp";
-            } catch (DomainException exc) {
-                errors.add(exc.getMessage());
-            }
+        String destination;
+        if (result.size() > 0) {
+            request.setAttribute("result", result);
+            destination = "register.jsp";
+        } else {
+            service.add(person);
+            destination = "index.jsp";
         }
-        request.setAttribute("errors", errors);
-        return "register.jsp";
+        return destination;
     }
 
-    private void setUserid(Person person, HttpServletRequest request, ArrayList<String> errors) {
+    private void setFitness(Person person, HttpServletRequest request, List<String> result) {
+        String fitness = request.getParameter("fitness");
+        try {
+            person.setFitness(fitness);
+            request.setAttribute("nameClass", "has-succes");
+        } catch (Exception exc) {
+            result.add(exc.getMessage());
+            request.setAttribute("nameClass", "has-error");
+        }
+    }
+
+    private void setUserId(Person person, HttpServletRequest request, List<String> result) {
         String userid = request.getParameter("userid");
+        request.setAttribute("idVorige", userid);
         try {
             person.setUserid(userid);
-            request.setAttribute("idVorige", userid);
-        } catch (DomainException exc) {
-            errors.add(exc.getMessage());
+            request.setAttribute("nameClass", "has-succes");
+        } catch (Exception exc) {
+            result.add(exc.getMessage());
+            request.setAttribute("nameClass", "has-error");
         }
     }
 
-    private void setFirstName(Person person, HttpServletRequest request, ArrayList<String> errors) {
-        String firstname = request.getParameter("firstName");
-        try {
-            person.setUserid(firstname);
-            request.setAttribute("voornaamVorige", firstname);
-        } catch (DomainException exc) {
-            errors.add(exc.getMessage());
-        }
-    }
-
-    private void setLastName(Person person, HttpServletRequest request, ArrayList<String> errors) {
-        String lastname = request.getParameter("lastName");
-        try {
-            person.setUserid(lastname);
-            request.setAttribute("naamVorige", lastname);
-        } catch (DomainException exc) {
-            errors.add(exc.getMessage());
-        }
-    }
-
-    private void setEmail(Person person, HttpServletRequest request, ArrayList<String> errors) {
+    private void setEmail(Person person, HttpServletRequest request, List<String> result) {
         String email = request.getParameter("email");
+        request.setAttribute("emailVorige", email);
+
         try {
-            person.setUserid(email);
-            request.setAttribute("emailVorige", email);
+            person.setEmail(email);
+            request.setAttribute("nameClass", "has-succes");
         } catch (DomainException exc) {
-            errors.add(exc.getMessage());
+            result.add(exc.getMessage());
+            request.setAttribute("nameClass", "has-error");
         }
     }
 
-    private void setPassword(Person person, HttpServletRequest request, ArrayList<String> errors) {
+    private void setPassword(Person person, HttpServletRequest request, List<String> result) {
         String password = request.getParameter("password");
+        request.setAttribute("passwordVorige", password);
         try {
-            person.setUserid(password);
-            request.setAttribute("passwordVorige", password);
+            person.setPassword(password);
+            request.setAttribute("nameClass", "has-succes");
         } catch (DomainException exc) {
-            errors.add(exc.getMessage());
+            result.add(exc.getMessage());
+            request.setAttribute("nameClass", "has-error");
+        }
+    }
+
+    private void setFirstName(Person person, HttpServletRequest request, List<String> result) {
+        String firstName = request.getParameter("firstName");
+        request.setAttribute("voornaamVorige", firstName);
+        try {
+            person.setFirstName(firstName);
+            request.setAttribute("nameClass", "has-succes");
+        } catch (DomainException exc) {
+            result.add(exc.getMessage());
+            request.setAttribute("nameClass", "has-error");
+        }
+    }
+
+    private void setLastName(Person person, HttpServletRequest request, List<String> result) {
+        String lastName = request.getParameter("lastName");
+        request.setAttribute("naamVorige", lastName);
+        try {
+            person.setLastName(lastName);
+            request.setAttribute("nameClass", "has-succes");
+        } catch (DomainException exc) {
+            result.add(exc.getMessage());
+            request.setAttribute("nameClass", "has-error");
         }
     }
 }

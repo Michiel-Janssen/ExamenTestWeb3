@@ -7,7 +7,7 @@ import java.util.List;
 public class ContactTracingService {
     private PersonService personDb = new PersonService();
 
-    public ContactTracingService() {
+    public ContactTracingService() throws IllegalAccessException {
     }
 
     public Person getPerson(String personId) {

@@ -10,8 +10,8 @@ import java.util.Map;
 public class PersonService {
 	private Map<String, Person> persons = new HashMap<>();
 	
-	public PersonService () {
-		Person administrator = new Person("admin", "admin@ucll.be", "t", "Ad", "Ministrator");
+	public PersonService () throws IllegalAccessException {
+		Person administrator = new Person("admin", "admin@ucll.be", "t", "Ad", "Ministrator", "Vaart");
 		add(administrator);
 	}
 	
