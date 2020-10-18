@@ -1,1 +1,11 @@
-target
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Maven
+log/
+target/
+
+# password
+/src/main/java/util/Secret.java

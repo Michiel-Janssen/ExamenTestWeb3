@@ -10,6 +10,9 @@ public class Person {
 	private String firstName;
 	private String lastName;
 	private String fitness;
+	private int hour;
+	private int date;
+	private int gsm;
 
 	public Person(String userid, String email, String password, String firstName, String lastName, String fitness) throws IllegalAccessException {
 		setUserid(userid);
@@ -18,6 +21,37 @@ public class Person {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setFitness(fitness);
+
+	}
+
+	public Person(String firstName, String lastName, int hour, int date, int gsm, String fitness) throws IllegalAccessException {
+		setFirstName(firstName);
+		setLastName(lastName);
+		setFitness(fitness);
+		setHour(hour);
+		setDate(date);
+		setGsm(gsm);
+	}
+
+	public void setGsm(int gsm) {
+		if(gsm < 0) {
+			throw new IllegalArgumentException("False gsm number");
+		}
+		this.gsm = gsm;
+	}
+
+	public void setDate(int date) {
+		if(date < 0) {
+			throw new IllegalArgumentException("False date");
+		}
+		this.date = date;
+	}
+
+	public void setHour(int hour) {
+		if(hour < 0 || hour > 24) {
+			throw new IllegalArgumentException("Hour is not possible");
+		}
+		this.hour = hour;
 	}
 
 	public Person() {

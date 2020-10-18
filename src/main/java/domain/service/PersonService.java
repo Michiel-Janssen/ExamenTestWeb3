@@ -1,5 +1,6 @@
-package domain.db;
+package domain.service;
 
+import domain.db.DbException;
 import domain.model.Person;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class PersonService {
 	private Map<String, Person> persons = new HashMap<>();
 	
 	public PersonService () throws IllegalAccessException {
-		Person administrator = new Person("admin", "admin@ucll.be", "t", "Ad", "Ministrator", "Vaart");
+		Person administrator = new Person("admin", "admin@ucll.be", "t", "Ad", "Ministrator", "");
 		add(administrator);
 	}
 	

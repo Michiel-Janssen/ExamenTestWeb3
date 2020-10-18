@@ -1,7 +1,7 @@
 
 package ui.controller;
 
-import domain.db.PersonService;
+import domain.service.PersonService;
 
 
 public class HandlerFactory {

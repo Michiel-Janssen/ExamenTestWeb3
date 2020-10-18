@@ -13,12 +13,10 @@ body {
 
 div#container {
 	background-color: #FFF;
-	margin: auto;
-	margin-top: 10px;
 }
 
 footer {
-	background-color: #b99703;
+	background-color: #bbbbbb;
 }
 
 nav ul {
@@ -44,7 +42,7 @@ nav ul li a{
 }
 
 nav ul li#actual {
-	background-color: #f3dc04;
+	background-color: #bbbbbb;
 }
 
 
@@ -114,9 +112,6 @@ input,textarea {
 
 
 /* mobile first */
-div#container {
-	width: 95%;
-}
 
 nav ul li {
 	display: block;
