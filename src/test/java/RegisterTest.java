@@ -20,11 +20,11 @@ public class RegisterTest {
 		//System.setProperty("webdriver.chrome.driver", "/Users/.../web3pers/chromedriver");
 			// windows: gebruik dubbele \\ om pad aan te geven
 			// hint: zoek een werkende test op van web 2 ...
-		System.setProperty("webdriver.chrome.driver", "/Applications/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "C:\\School\\WebHulpProgramma's\\chromedriver.exe");
 		driver = new ChromeDriver();
-		driver.get(path+"?action=signUp");
+		driver.get(path+"?command=Register");
 	}
-	
+
 	@After
 	public void clean() {
 	    driver.quit();
@@ -38,7 +38,7 @@ public class RegisterTest {
 		String title = driver.getTitle();
 		assertEquals("Overview",title);
 		
-		driver.get(path+"?action=overview");
+		driver.get(path+"?command=Overview");
 		
 		ArrayList<WebElement> listItems=(ArrayList<WebElement>) driver.findElements(By.cssSelector("table tr"));
 		boolean found=false;
@@ -55,7 +55,7 @@ public class RegisterTest {
 		submitForm("", "Jan", "Janssens", "jan.janssens@hotmail.com", "1234");
 		
 		String title = driver.getTitle();
-		assertEquals("Sign Up",title);
+		assertEquals("Register",title);
 		
 		WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
 		assertEquals("No userid given", errorMsg.getText());
@@ -78,7 +78,7 @@ public class RegisterTest {
 		submitForm("jakke", "", "Janssens", "jan.janssens@hotmail.com", "1234");
 		
 		String title = driver.getTitle();
-		assertEquals("Sign Up",title);
+		assertEquals("Register",title);
 		
 		WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
 		assertEquals("No firstname given", errorMsg.getText());
@@ -101,7 +101,7 @@ public class RegisterTest {
 		submitForm("jakke", "Jan", "", "jan.janssens@hotmail.com", "1234");
 		
 		String title = driver.getTitle();
-		assertEquals("Sign Up",title);
+		assertEquals("Register",title);
 		
 		WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
 		assertEquals("No last name given", errorMsg.getText());
@@ -124,7 +124,7 @@ public class RegisterTest {
 		submitForm("jakke", "Jan", "Janssens", "", "1234");
 		
 		String title = driver.getTitle();
-		assertEquals("Sign Up",title);
+		assertEquals("Register",title);
 
 		WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
 		assertEquals("No email given", errorMsg.getText());
@@ -148,7 +148,7 @@ public class RegisterTest {
 		submitForm("jakke", "Jan", "Janssens", "jan.janssens@hotmail.com", "");
 		
 		String title = driver.getTitle();
-		assertEquals("Sign Up",title);
+		assertEquals("Register",title);
 		
 		WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
 		assertEquals("No password given", errorMsg.getText());
@@ -171,7 +171,7 @@ public class RegisterTest {
 		String useridRandom = generateRandomUseridInOrderToRunTestMoreThanOnce("pierke");
 		submitForm(useridRandom, "Pieter", "Pieters", "pieter.pieters@hotmail.com", "1234");
 		
-		driver.get(path+"?action=signUp");
+		driver.get(path+"?command=Register");
 
 		submitForm(useridRandom, "Pieter", "Pieters", "pieter.pieters@hotmail.com", "1234");
 		

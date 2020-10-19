@@ -34,13 +34,13 @@ Register
 		</ul>
 	</div>
 </c:if>
-    <form method="POST" action="Controller?command=Register" novalidate="novalidate">
+    <form method="POST" action="Controller?command=Register">
     	<!-- novalidate in order to be able to run tests correctly -->
-        <p><label for="userid">User id</label><input type="text" id="userid" name="userid" value="${idVorige}" required > </p>
-        <p><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" value="${voornaamVorige}" required> </p>
-        <p><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value="${naamVorige}" required> </p>
-        <p><label for="email">Email</label><input type="email" id="email" name="email" value="${emailVorige}" required></p>
-        <p><label for="password">Password</label><input type="password" id="password"  name="password" value="${passwordVorige}" required> </p>
+        <p><label for="userid">User id</label><input type="text" id="userid" name="userid" value="${lastId}" > </p>
+        <p><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" value="${lastFirstName}" > </p>
+        <p><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value="${lastLastName}"> </p>
+        <p><label for="email">Email</label><input type="email" id="email" name="email" value="${lastEmail}"></p>
+        <p><label for="password">Password</label><input type="password" id="password"  name="password" value="${lastPassword}"> </p>
         <label for="fitness">Choose a fitness:</label>
 
         <select name="fitness" id="fitness">

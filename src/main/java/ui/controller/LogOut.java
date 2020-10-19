@@ -15,3 +15,4 @@ public class LogOut extends RequestHandler {
         return "index.jsp";
     }
 }
+//session.invalidate

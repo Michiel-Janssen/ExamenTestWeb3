@@ -27,7 +27,7 @@ public class Register extends RequestHandler {
             destination = "register.jsp";
         } else {
             service.add(person);
-            destination = "index.jsp";
+            destination = "Controller?command=Overview";
         }
         return destination;
     }
@@ -45,7 +45,7 @@ public class Register extends RequestHandler {
 
     private void setUserId(Person person, HttpServletRequest request, List<String> result) {
         String userid = request.getParameter("userid");
-        request.setAttribute("idVorige", userid);
+        request.setAttribute("lastId", userid);
         try {
             person.setUserid(userid);
             request.setAttribute("nameClass", "has-succes");
@@ -57,7 +57,7 @@ public class Register extends RequestHandler {
 
     private void setEmail(Person person, HttpServletRequest request, List<String> result) {
         String email = request.getParameter("email");
-        request.setAttribute("emailVorige", email);
+        request.setAttribute("lastEmail", email);
 
         try {
             person.setEmail(email);
@@ -70,7 +70,7 @@ public class Register extends RequestHandler {
 
     private void setPassword(Person person, HttpServletRequest request, List<String> result) {
         String password = request.getParameter("password");
-        request.setAttribute("passwordVorige", password);
+        request.setAttribute("lastPassword", password);
         try {
             person.setPassword(password);
             request.setAttribute("nameClass", "has-succes");
@@ -82,7 +82,7 @@ public class Register extends RequestHandler {
 
     private void setFirstName(Person person, HttpServletRequest request, List<String> result) {
         String firstName = request.getParameter("firstName");
-        request.setAttribute("voornaamVorige", firstName);
+        request.setAttribute("lastFirstName", firstName);
         try {
             person.setFirstName(firstName);
             request.setAttribute("nameClass", "has-succes");
@@ -94,7 +94,7 @@ public class Register extends RequestHandler {
 
     private void setLastName(Person person, HttpServletRequest request, List<String> result) {
         String lastName = request.getParameter("lastName");
-        request.setAttribute("naamVorige", lastName);
+        request.setAttribute("lastLastName", lastName);
         try {
             person.setLastName(lastName);
             request.setAttribute("nameClass", "has-succes");
