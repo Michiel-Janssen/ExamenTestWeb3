@@ -10,4 +10,12 @@
         <scripting-invalid>true</scripting-invalid>
     </jsp-property-group>
 </jsp-config>
+    <context-param>
+        <param-name>dburl</param-name>
+        <param-value>jdbc:postgresql://databanken.ucll.be:62021/2TX33</param-value>
+    </context-param>
+    <context-param>
+        <param-name>schema</param-name>
+        <param-value>JanssenMichielWeb3</param-value>
+    </context-param>
 </web-app>

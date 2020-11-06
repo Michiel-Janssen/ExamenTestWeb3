@@ -6,7 +6,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8">
-    <title>Overview</title>
+    <title>Contacts</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -23,7 +23,7 @@
         <h2>
             Contacts
         </h2>
-
+        <p><p>De populairste fitness is ${populairsteFitness}</p></p>
     </header>
     <main>
     <table>
@@ -33,12 +33,12 @@
             <th>Name</th>
             <th>Fitness</th>
         </tr>
-        <c:forEach var="person" items="${persons}">
+        <c:forEach var="contact" items="${contacts}">
             <tr>
-                <td></td>
-                <td></td>
-                <td>${person.firstName} ${person.lastName}</td>
-                <td>${person.fitness}</td>
+                <td>${contact.date}</td>
+                <td>${contact.hour}</td>
+                <td>${contact.firstName} ${contact.lastName}</td>
+                <td>${contact.fitness}</td>
             </tr>
         </c:forEach>
 
@@ -46,8 +46,8 @@
             <!-- novalidate in order to be able to run tests correctly -->
             <p><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" value="${voornaamVorige}" required> </p>
             <p><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value="${naamVorige}" required> </p>
-            <p><label for="date">Date</label><input type="text" id="date" name="date" value="${dateVorige}" required > </p>
-            <p><label for="hour">Hour</label><input type="text" id="hour" name="hour" value="${hourVorige}" required > </p>
+            <p><label for="date">Date</label><input type="date" id="date" name="date" value="${dateVorige}" required></p>
+            <p><label for="hour">Time</label><input type="time" id="hour" name="hour" value="${hourVorige}" required></p>
             <p><label for="gsm">GSM</label><input type="gsm" id="gsm" name="gsm" value="${gsmVorige}" required > </p>
             <p><label for="email">Email</label><input type="email" id="email" name="email" value="${emailVorige}" required></p>
             <label for="fitness">Choose a fitness:</label>

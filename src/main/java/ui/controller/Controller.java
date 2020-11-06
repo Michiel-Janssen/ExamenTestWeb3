@@ -8,16 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import domain.service.ContactService;
 import domain.service.PersonService;
 
 
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private PersonService service = new PersonService();
+    private PersonService personService = new PersonService();
+    private ContactService contactService = new ContactService();
     private HandlerFactory handlerFactory = new HandlerFactory();
 
-    public Controller() throws IllegalAccessException {
+    public Controller() {
         super();
     }
 
@@ -34,7 +36,7 @@ public class Controller extends HttpServlet {
         String destination = "index.html";
         if (command != null) {
             try {
-                RequestHandler handler = handlerFactory.getHandler(command, service);
+                RequestHandler handler = handlerFactory.getHandler(command, personService, contactService);
                 destination = handler.handleRequest(request, response);
             } catch (Exception exc) {
                 request.setAttribute("result", exc.getMessage());

@@ -8,11 +8,9 @@ import java.io.IOException;
 
 public class LogOut extends RequestHandler {
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String role = null;
-        HttpSession session = request.getSession();
-        session.setAttribute("user",role );
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response){
+        request.getSession().invalidate();
         return "index.jsp";
     }
 }
-//session.invalidate
+

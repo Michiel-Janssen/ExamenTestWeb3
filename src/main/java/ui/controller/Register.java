@@ -17,30 +17,18 @@ public class Register extends RequestHandler {
         setUserId(person, request, result);
         setFirstName(person, request, result);
         setLastName(person, request, result);
-        setEmail(person, request, result);
         setPassword(person, request, result);
-        setFitness(person, request, result);
+        setEmail(person, request, result);
 
         String destination;
         if (result.size() > 0) {
             request.setAttribute("result", result);
             destination = "register.jsp";
         } else {
-            service.add(person);
+            personService.add(person);
             destination = "Controller?command=Overview";
         }
         return destination;
-    }
-
-    private void setFitness(Person person, HttpServletRequest request, List<String> result) {
-        String fitness = request.getParameter("fitness");
-        try {
-            person.setFitness(fitness);
-            request.setAttribute("nameClass", "has-succes");
-        } catch (Exception exc) {
-            result.add(exc.getMessage());
-            request.setAttribute("nameClass", "has-error");
-        }
     }
 
     private void setUserId(Person person, HttpServletRequest request, List<String> result) {
@@ -50,8 +38,8 @@ public class Register extends RequestHandler {
             person.setUserid(userid);
             request.setAttribute("nameClass", "has-succes");
         } catch (Exception exc) {
-            result.add(exc.getMessage());
             request.setAttribute("nameClass", "has-error");
+            result.add(exc.getMessage());
         }
     }
 
@@ -63,8 +51,8 @@ public class Register extends RequestHandler {
             person.setEmail(email);
             request.setAttribute("nameClass", "has-succes");
         } catch (DomainException exc) {
-            result.add(exc.getMessage());
             request.setAttribute("nameClass", "has-error");
+            result.add(exc.getMessage());
         }
     }
 
@@ -75,8 +63,8 @@ public class Register extends RequestHandler {
             person.setPassword(password);
             request.setAttribute("nameClass", "has-succes");
         } catch (DomainException exc) {
-            result.add(exc.getMessage());
             request.setAttribute("nameClass", "has-error");
+            result.add(exc.getMessage());
         }
     }
 
@@ -87,8 +75,8 @@ public class Register extends RequestHandler {
             person.setFirstName(firstName);
             request.setAttribute("nameClass", "has-succes");
         } catch (DomainException exc) {
-            result.add(exc.getMessage());
             request.setAttribute("nameClass", "has-error");
+            result.add(exc.getMessage());
         }
     }
 
@@ -99,8 +87,8 @@ public class Register extends RequestHandler {
             person.setLastName(lastName);
             request.setAttribute("nameClass", "has-succes");
         } catch (DomainException exc) {
-            result.add(exc.getMessage());
             request.setAttribute("nameClass", "has-error");
+            result.add(exc.getMessage());
         }
     }
 }

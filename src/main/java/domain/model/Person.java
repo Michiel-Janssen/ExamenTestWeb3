@@ -9,49 +9,13 @@ public class Person {
 	private String password;
 	private String firstName;
 	private String lastName;
-	private String fitness;
-	private int hour;
-	private int date;
-	private int gsm;
 
-	public Person(String userid, String email, String password, String firstName, String lastName, String fitness) throws IllegalAccessException {
+	public Person(String userid, String firstName, String lastName, String password, String email) {
 		setUserid(userid);
-		setEmail(email);
+		setFirstName(firstName);
+		setLastName(lastName);
 		setPassword(password);
-		setFirstName(firstName);
-		setLastName(lastName);
-		setFitness(fitness);
-
-	}
-
-	public Person(String firstName, String lastName, int hour, int date, int gsm, String fitness) throws IllegalAccessException {
-		setFirstName(firstName);
-		setLastName(lastName);
-		setFitness(fitness);
-		setHour(hour);
-		setDate(date);
-		setGsm(gsm);
-	}
-
-	public void setGsm(int gsm) {
-		if(gsm < 0) {
-			throw new IllegalArgumentException("False gsm number");
-		}
-		this.gsm = gsm;
-	}
-
-	public void setDate(int date) {
-		if(date < 0) {
-			throw new IllegalArgumentException("False date");
-		}
-		this.date = date;
-	}
-
-	public void setHour(int hour) {
-		if(hour < 0 || hour > 24) {
-			throw new IllegalArgumentException("Hour is not possible");
-		}
-		this.hour = hour;
+		setEmail(email);
 	}
 
 	public Person() {
@@ -69,27 +33,27 @@ public class Person {
 	}
 
 	public void setEmail(String email) {
-		if(email.isEmpty()){
+		/*
+		if (email.isEmpty()) {
 			throw new IllegalArgumentException("No email given");
 		}
-		String USERID_PATTERN = 
+		String USERID_PATTERN =
 				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+						+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 		Pattern p = Pattern.compile(USERID_PATTERN);
 		Matcher m = p.matcher(email);
 		if (!m.matches()) {
 			throw new IllegalArgumentException("Email not valid");
 		}
+		 */
 		this.email = email;
 	}
 
-	
-	
 	public String getEmail() {
 		return email;
 	}
 	
-	private String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 	
@@ -127,17 +91,6 @@ public class Person {
 			throw new IllegalArgumentException("No last name given");
 		}
 		this.lastName = lastName;
-	}
-
-	public void setFitness(String fitness) throws IllegalAccessException {
-		if(fitness == null) {
-			throw new IllegalAccessException("No fitness given");
-		}
-		this.fitness = fitness;
-	}
-
-	public String getFitness() {
-		return fitness;
 	}
 
 	@Override

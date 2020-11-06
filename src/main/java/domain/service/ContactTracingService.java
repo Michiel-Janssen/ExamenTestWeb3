@@ -1,3 +1,4 @@
+/*
 package domain.service;
 
 import domain.model.Person;
@@ -35,3 +36,4 @@ public class ContactTracingService {
         return personDb;
     }
 }
+ */

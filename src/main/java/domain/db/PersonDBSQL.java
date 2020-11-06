@@ -29,14 +29,13 @@ public class PersonDBSQL implements PersonDB {
         if (person == null) {
             throw new DbException("Nothing to add.");
         }
-        String sql = String.format("INSERT INTO %s.person (email, firstname, lastname, fitness) VALUES (?, ?, ?, ?)", this.schema);
-
         try {
-            PreparedStatement statementSQL = connection.prepareStatement(sql);
-            statementSQL.setString(1, person.getEmail());
+            PreparedStatement statementSQL = connection.prepareStatement("INSERT INTO \"JanssenMichielWeb3\".person (\"id\", \"firstName\", \"lastName\", \"password\", \"email\") VALUES (?,?,?,?,?)");
+            statementSQL.setString(1, person.getUserid());
             statementSQL.setString(2, person.getFirstName());
             statementSQL.setString(3, person.getLastName());
-            statementSQL.setString(3, person.getFitness());
+            statementSQL.setString(4, person.getPassword());
+            statementSQL.setString(5, person.getEmail());
             statementSQL.execute();
         } catch (SQLException e) {
             throw new DbException(e);
@@ -51,23 +50,23 @@ public class PersonDBSQL implements PersonDB {
      */
     public List<Person> getAll() {
         List<Person> persons = new ArrayList<Person>();
-        String sql = String.format("SELECT * FROM %s.person", this.schema);
+        String sql = String.format("SELECT * from \"JanssenMichielWeb3\".person", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
-                String userid = result.getString("userid");
-                String email = result.getString("email");
-                String firstname = result.getString("firstname");
-                String lastname = result.getString("lastname");
+                String userid = result.getString("id");
+                String firstname = result.getString("firstName");
+                String lastname = result.getString("lastName");
                 String password = result.getString("password");
-                String fitness = result.getString("fitness");
-                Person person = new Person(userid, email, firstname, lastname, password, fitness);
+                String email = result.getString("email");
+                Person person = new Person(userid, firstname, lastname, password, email);
                 persons.add(person);
             }
-        } catch (SQLException | IllegalAccessException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage(), e);
         }
         return persons;
     }
+
 }

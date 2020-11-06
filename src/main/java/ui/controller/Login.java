@@ -26,7 +26,7 @@ public class Login extends RequestHandler {
         String userId = request.getParameter("userid");
         request.setAttribute("loginId", userId);
 
-        List<Person> personList = service.getAll();
+        List<Person> personList = personService.getAll();
         Person thePerson = null;
 
         for (Person person :  personList) {
@@ -53,7 +53,6 @@ public class Login extends RequestHandler {
             request.setAttribute("nameClass", "has-succes");
             HttpSession session = request.getSession();
             session.setAttribute("user", person.getFirstName());
-            session.setAttribute("fitness", person.getFitness());
         }
     }
 
