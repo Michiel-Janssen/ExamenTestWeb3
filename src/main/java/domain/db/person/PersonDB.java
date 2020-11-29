@@ -1,5 +1,6 @@
-package domain.db;
+package domain.db.person;
 
+import domain.db.DbException;
 import domain.model.Person;
 
 import java.util.List;

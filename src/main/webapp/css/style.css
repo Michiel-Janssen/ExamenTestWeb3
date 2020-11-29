@@ -7,16 +7,18 @@
 body {
 	font-family: arial,sans-serif;
 	font-size: 90%;
-	color: #888888;
-	background-color: #888888;
+	color: #303d11;
+	background-color: #303d11;
 }
 
 div#container {
 	background-color: #FFF;
+	margin: auto;
+	margin-top: 10px;
 }
 
 footer {
-	background-color: #bbbbbb;
+	background-color: #b99703;
 }
 
 nav ul {
@@ -42,7 +44,7 @@ nav ul li a{
 }
 
 nav ul li#actual {
-	background-color: #bbbbbb;
+	background-color: #f3dc04;
 }
 
 
@@ -51,7 +53,7 @@ h2, main, footer {
 }
 
 h1 {
-	background-image: url("../images/fitness.jpg");
+	background-image: url("../images/bannerKlein.png");
 	height: 100px;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -75,43 +77,46 @@ table caption {
 }
 
 form {
-    margin: 30px 0;
+	margin: 30px 0;
 }
 
 .alert-danger {
-    padding: 0.5em;
-    background-color: #f2dede;
-    border: 1px solid #b94a48;
-    color: #b94a48;
-    border-radius: 3px;
-    width: 100%;
-    margin-bottom: 1em;
-    box-sizing: border-box;
+	padding: 0.5em;
+	background-color: #f2dede;
+	border: 1px solid #b94a48;
+	color: #b94a48;
+	border-radius: 3px;
+	width: 100%;
+	margin-bottom: 1em;
+	box-sizing: border-box;
 }
 .alert-danger ul {
-    list-style-type: none;
+	list-style-type: none;
 }
 label,input,textarea {
-    margin-bottom: 16px;
+	margin-bottom: 16px;
 }
 input,textarea {
-    border: 1px solid #888;
-    margin: 2px 0 16px 0;
-    outline: 0 none;
-    padding: 0.5em;
-    line-height:15px;
-    border-radius: 3px;
-    box-shadow: inset 0px 1px 4px #ECECEC;
-    box-sizing: border-box;
+	border: 1px solid #888;
+	margin: 2px 0 16px 0;
+	outline: 0 none;
+	padding: 0.5em;
+	line-height:15px;
+	border-radius: 3px;
+	box-shadow: inset 0px 1px 4px #ECECEC;
+	box-sizing: border-box;
 }
 .has-error {
-    color: #b94a48;
-    border-color: #b94a48;
-    box-shadow: inset 0px 1px 4px #d59392;
+	color: #b94a48;
+	border-color: #b94a48;
+	box-shadow: inset 0px 1px 4px #d59392;
 }
 
 
 /* mobile first */
+div#container {
+	width: 95%;
+}
 
 nav ul li {
 	display: block;
@@ -123,72 +128,72 @@ nav ul li:first-child {
 }
 
 label,input,textarea {
-    display: block;
+	display: block;
 }
 input[type="text"], input[type="email"], textarea {
-    width: 100%;
+	width: 100%;
 }
 input {
-    height: 25px;
+	height: 25px;
 }
 
 
 /* desktop */
 @media screen and (min-width: 650px) {
 	div#container {
-	max-width: 1000px;
+		max-width: 1000px;
 	}
 	h1 {
-	background-image: url("../images/fitness.jpg");
+		background-image: url("../images/banner.png");
 	}
-	
+
 	nav ul {
-  	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-	display: flex;
-	-webkit-flex-direction: row;
-	-ms-flex-direction: row;
-	flex-direction: row;
-	box-sizing: border-box;
+		display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+		display: -ms-flexbox;  /* TWEENER - IE 10 */
+		display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+		display: flex;
+		-webkit-flex-direction: row;
+		-ms-flex-direction: row;
+		flex-direction: row;
+		box-sizing: border-box;
 	}
-	
+
 	nav ul li {
-	width: 33%;
-	margin: auto;
-	border: none;
+		width: 33%;
+		margin: auto;
+		border: none;
 	}
 	nav ul li:first-child {
-	border: none;
+		border: none;
 	}
 	nav ul li a {
-	text-align: center;
+		text-align: center;
 	}
 	footer {
-	text-align: right;
+		text-align: right;
 	}
-	    .alert-danger {
-        width: 614px;
-    }
-    label,input,textarea {
-        display: inline-block; 
-    }
-    label {
-        width: 100px;
-        text-align: right;
-        margin-right: 10px;
-    }
-    input[type="text"], input[type="email"], input[type="password"], textarea{
-        width: 400px;
-    }
-    input[type="submit"] {
-        margin-left: 112px;
-    }
-    textarea {
-        vertical-align: middle;    
-    }
-	
-	
+	.alert-danger {
+		width: 614px;
+	}
+	label,input,textarea {
+		display: inline-block;
+	}
+	label {
+		width: 100px;
+		text-align: right;
+		margin-right: 10px;
+	}
+	input[type="text"], input[type="email"], input[type="password"], textarea{
+		width: 400px;
+	}
+	input[type="submit"] {
+		margin-left: 112px;
+	}
+	textarea {
+		vertical-align: middle;
+	}
+
+
 }
 
 /*

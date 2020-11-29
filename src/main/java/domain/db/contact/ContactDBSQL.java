@@ -1,7 +1,7 @@
-package domain.db;
+package domain.db.contact;
 
+import domain.db.DbException;
 import domain.model.Contact;
-import domain.model.Person;
 import util.DbConnectionService;
 
 import java.sql.*;
@@ -31,13 +31,12 @@ public class ContactDBSQL implements ContactDB {
             throw new DbException("Nothing to add.");
         }
         try {
-            PreparedStatement statementSQL = connection.prepareStatement("INSERT INTO \"JanssenMichielWeb3\".contact (\"firstName\", \"lastName\", \"email\", \"hour\", \"date\", \"gsm\", \"fitness\") VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement statementSQL = connection.prepareStatement("INSERT INTO \"web3_project_r0789294\".contact (\"firstname\", \"lastname\", \"email\", \"date\", \"gsm\", \"fitness\") VALUES (?,?,?,?,?,?,?)");
             statementSQL.setString(1, contact.getFirstName());
             statementSQL.setString(2, contact.getLastName());
             statementSQL.setString(3, contact.getEmail());
-            statementSQL.setString(4, contact.getHour());
-            statementSQL.setString(5, contact.getDate());
-            statementSQL.setInt(6, contact.getGsm());
+            statementSQL.setObject(5, contact.getDate());
+            statementSQL.setString(6, contact.getGsm());
             statementSQL.setString(7, contact.getFitness());
             statementSQL.execute();
         } catch (SQLException e) {
@@ -53,19 +52,18 @@ public class ContactDBSQL implements ContactDB {
      */
     public List<Contact> getAll() {
         List<Contact> contacten = new ArrayList<Contact>();
-        String sql = String.format("SELECT * from \"JanssenMichielWeb3\".contact", this.schema);
+        String sql = String.format("SELECT * from \"web3_project_r0789294\".contact", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
-                String firstName = result.getString("firstName");
-                String lastName = result.getString("lastName");
+                String firstName = result.getString("firstname");
+                String lastName = result.getString("lastname");
                 String email = result.getString("email");
-                String hour = result.getString("hour");
-                String date = result.getString("date");
-                int gsm = result.getInt("gsm");
+                Timestamp date = result.getObject("date", Timestamp.class);
+                String gsm = result.getString("gsm");
                 String fitness = result.getString("fitness");
-                Contact contact = new Contact(firstName, lastName, email, hour, date, gsm, fitness);
+                Contact contact = new Contact(firstName, lastName, email, date, gsm, fitness);
                 contacten.add(contact);
             }
         } catch (SQLException e) {
@@ -73,6 +71,8 @@ public class ContactDBSQL implements ContactDB {
         }
         return contacten;
     }
+
+    //Extra story, geef populairste fitness terug
 
     @Override
     public String popularFitness() {
@@ -84,7 +84,7 @@ public class ContactDBSQL implements ContactDB {
             while (result.next()) {
                 String fitness = result.getString("fitness");
                 fitnessen.add(fitness);
-            } //return fitnessen;
+            }
             int v = 0;
             int h = 0;
             int c = 0;
@@ -118,5 +118,30 @@ public class ContactDBSQL implements ContactDB {
         } catch (SQLException e) {
             throw new DbException(e.getMessage(), e);
         }
+    }
+
+    //SQL Van mensen die in contact zijn gekomen met een corona patiënt
+    @Override
+    public List<Contact> getPossibleCorona(String Date) {
+        List<Contact> contacts = new ArrayList<Contact>();
+        String sql = String.format("SELECT * from \"web3_project_r0789294\".\"contact\" WHERE date = ?", this.schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setString(1, Date);
+            ResultSet result = statementSql.executeQuery();
+            while (result.next()) {
+                String firstName = result.getString("firstname");
+                String lastName = result.getString("lastname");
+                String email = result.getString("email");
+                Timestamp date = result.getObject("date", Timestamp.class);
+                String gsm = result.getString("gsm");
+                String fitness = result.getString("fitness");
+                Contact c = new Contact(firstName, lastName, email, date, gsm, fitness);
+                contacts.add(c);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return contacts;
     }
 }

@@ -1,5 +1,6 @@
-package domain.db;
+package domain.db.contact;
 
+import domain.db.DbException;
 import domain.model.Contact;
 
 import java.util.List;
@@ -23,4 +24,8 @@ public interface ContactDB {
     List<Contact> getAll();
 
     String popularFitness();
+
+    List<Contact> getPossibleCorona(String Date);
+
+
 }

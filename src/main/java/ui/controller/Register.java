@@ -1,16 +1,23 @@
 package ui.controller;
 
+import domain.db.DbException;
 import domain.model.DomainException;
 import domain.model.Person;
+import domain.model.Role;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Register extends RequestHandler {
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        Role[] roles = {Role.ADMIN};
+        Utility.checkRole(request, roles);
+
         List<String> result = new ArrayList<String>();
         Person person = new Person();
 
@@ -19,16 +26,37 @@ public class Register extends RequestHandler {
         setLastName(person, request, result);
         setPassword(person, request, result);
         setEmail(person, request, result);
+        setRole(person, request, result);
 
-        String destination;
-        if (result.size() > 0) {
-            request.setAttribute("result", result);
-            destination = "register.jsp";
+        if(result.size() == 0) {
+            try {
+                service.addPerson(person);
+                response.sendRedirect("Controller?command=Overview");
+            } catch (DbException | IOException e) {
+                result.add(e.getMessage());
+            }
         } else {
-            personService.add(person);
-            destination = "Controller?command=Overview";
+            try {
+                request.setAttribute("result", result);
+                request.getRequestDispatcher("Controller?command=Register").forward(request, response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
         }
-        return destination;
+    }
+
+
+    //Setters
+
+    private void setRole(Person person, HttpServletRequest request, List<String> result) {
+        String roleAsString = request.getParameter("role").trim();
+        try {
+            Role role = Role.valueOf(roleAsString.toUpperCase());
+            person.setRole(role);
+            request.setAttribute("lastRole", roleAsString);
+        } catch (Exception e) {
+            result.add(e.getMessage());
+        }
     }
 
     private void setUserId(Person person, HttpServletRequest request, List<String> result) {
@@ -60,7 +88,7 @@ public class Register extends RequestHandler {
         String password = request.getParameter("password");
         request.setAttribute("lastPassword", password);
         try {
-            person.setPassword(password);
+            person.setPasswordHashed(password);
             request.setAttribute("nameClass", "has-succes");
         } catch (DomainException exc) {
             request.setAttribute("nameClass", "has-error");

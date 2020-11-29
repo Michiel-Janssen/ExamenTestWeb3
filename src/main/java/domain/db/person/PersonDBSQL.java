@@ -1,5 +1,6 @@
-package domain.db;
+package domain.db.person;
 
+import domain.db.DbException;
 import domain.model.Person;
 import util.DbConnectionService;
 
@@ -30,7 +31,7 @@ public class PersonDBSQL implements PersonDB {
             throw new DbException("Nothing to add.");
         }
         try {
-            PreparedStatement statementSQL = connection.prepareStatement("INSERT INTO \"JanssenMichielWeb3\".person (\"id\", \"firstName\", \"lastName\", \"password\", \"email\") VALUES (?,?,?,?,?)");
+            PreparedStatement statementSQL = connection.prepareStatement("INSERT INTO \"web3_project_r0789294\".person (\"id\", \"firstname\", \"lastname\", \"password\", \"email\") VALUES (?,?,?,?,?)");
             statementSQL.setString(1, person.getUserid());
             statementSQL.setString(2, person.getFirstName());
             statementSQL.setString(3, person.getLastName());
@@ -50,14 +51,14 @@ public class PersonDBSQL implements PersonDB {
      */
     public List<Person> getAll() {
         List<Person> persons = new ArrayList<Person>();
-        String sql = String.format("SELECT * from \"JanssenMichielWeb3\".person", this.schema);
+        String sql = String.format("SELECT * from \"web3_project_r0789294\".person", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
                 String userid = result.getString("id");
-                String firstname = result.getString("firstName");
-                String lastname = result.getString("lastName");
+                String firstname = result.getString("firstname");
+                String lastname = result.getString("lastname");
                 String password = result.getString("password");
                 String email = result.getString("email");
                 Person person = new Person(userid, firstname, lastname, password, email);
@@ -68,5 +69,4 @@ public class PersonDBSQL implements PersonDB {
         }
         return persons;
     }
-
 }

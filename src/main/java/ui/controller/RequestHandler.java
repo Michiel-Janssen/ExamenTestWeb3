@@ -1,20 +1,23 @@
 package ui.controller;
 
-import domain.service.ContactService;
-import domain.service.PersonService;
+import domain.service.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 public abstract class RequestHandler {
 
-    protected PersonService personService;
-    protected ContactService contactService;
+    protected Service service;
 
-    public abstract String handleRequest (HttpServletRequest request, HttpServletResponse response);
+    public abstract void handleRequest (HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException, IOException;
 
-    public void setModel (PersonService personService, ContactService contactService) {
-        this.personService = personService;
-        this.contactService = contactService;
+    public void setModel (Service service) {
+        this.service = service;
+    }
+
+    public Service getService() {
+        return service;
     }
 }

@@ -1,6 +1,9 @@
 package ui.controller;
 
+import domain.service.Service;
+
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,15 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import domain.service.ContactService;
-import domain.service.PersonService;
-
 
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private PersonService personService = new PersonService();
-    private ContactService contactService = new ContactService();
+    private Service service = new Service();
     private HandlerFactory handlerFactory = new HandlerFactory();
 
     public Controller() {
@@ -33,16 +32,19 @@ public class Controller extends HttpServlet {
 
     private void processRequest (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String command = request.getParameter("command");
-        String destination = "index.html";
-        if (command != null) {
+        if(command == null || command.isEmpty())
+            command = "Home";
+        RequestHandler handler = handlerFactory.getHandler(command, service);
+
+        try {
+            handler.handleRequest(request, response);
+        } catch (NotAuthorizedException | NoSuchAlgorithmException e) {
+            request.setAttribute("notAutorized", "You have insufficient rights to have a look at this page.");
             try {
-                RequestHandler handler = handlerFactory.getHandler(command, personService, contactService);
-                destination = handler.handleRequest(request, response);
-            } catch (Exception exc) {
-                request.setAttribute("result", exc.getMessage());
-                destination = "register.jsp";
+                handlerFactory.getHandler("Home", service).handleRequest(request,response);
+            } catch (NoSuchAlgorithmException noSuchAlgorithmException) {
+                noSuchAlgorithmException.printStackTrace();
             }
         }
-        request.getRequestDispatcher(destination).forward(request, response);
     }
 }

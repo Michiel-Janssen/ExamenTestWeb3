@@ -1,5 +1,9 @@
 package domain.model;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,6 +13,7 @@ public class Person {
 	private String password;
 	private String firstName;
 	private String lastName;
+	private Role role;
 
 	public Person(String userid, String firstName, String lastName, String password, String email) {
 		setUserid(userid);
@@ -16,13 +21,16 @@ public class Person {
 		setLastName(lastName);
 		setPassword(password);
 		setEmail(email);
+		setRole(role);
 	}
 
 	public Person() {
 	}
 
-	public String getUserid() {
-		return userid;
+	//Setters
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public void setUserid(String userid) {
@@ -33,7 +41,6 @@ public class Person {
 	}
 
 	public void setEmail(String email) {
-		/*
 		if (email.isEmpty()) {
 			throw new IllegalArgumentException("No email given");
 		}
@@ -45,23 +52,7 @@ public class Person {
 		if (!m.matches()) {
 			throw new IllegalArgumentException("Email not valid");
 		}
-		 */
 		this.email = email;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	
-	public boolean isCorrectPassword(String password) {
-		if(password.isEmpty()){
-			throw new IllegalArgumentException("No password given");
-		}
-		return getPassword().equals(password);
 	}
 
 	public void setPassword(String password) {
@@ -71,10 +62,6 @@ public class Person {
 		this.password = password;
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
 	public void setFirstName(String firstName) {
 		if(firstName.isEmpty()){
 			throw new IllegalArgumentException("No firstname given");
@@ -82,15 +69,96 @@ public class Person {
 		this.firstName = firstName;
 	}
 
-	public String getLastName() {
-		return lastName;
-	}
-
 	public void setLastName(String lastName) {
 		if(lastName.isEmpty()){
 			throw new IllegalArgumentException("No last name given");
 		}
 		this.lastName = lastName;
+	}
+
+	//Getters
+
+	public Role getRole() {
+		return role;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	// Extra
+
+	public boolean isCorrectPassword(String password) {
+		if(password.isEmpty()){
+			throw new IllegalArgumentException("No password given");
+		}
+		return getPassword().equals(password);
+	}
+
+	public boolean isCorrectHashedPassword(String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+		if(password.isEmpty()){
+			throw new IllegalArgumentException("No password given");
+		}
+		return hashPassword(pass).equals(password);
+	}
+
+	public void setPasswordHashed(String password)  {
+		if(password.isEmpty()){
+			throw new IllegalArgumentException("No password given");
+		}
+		try {
+			this.password = hashPassword(password);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private String hashPassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		MessageDigest crypt = MessageDigest.getInstance("SHA-512");
+		crypt.reset();
+
+		// encrypts
+		crypt.update(password.getBytes("UTF-8"));
+
+		//16 hexadecimal system the sixteen digits are "0–9" followed by "A–F".
+		String hashedPassword = new BigInteger(1, crypt.digest()).toString(16);
+		System.out.println(hashedPassword.length());
+		return hashedPassword;
+	}
+
+	public boolean isPasswordCorrect(String password){
+		try {
+			return this.password.equals(hashPassword(password));
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public Person getpersonIfAuthenticated(String password){
+		if(this != null && this.isPasswordCorrect(password))
+			return this;
+		return null;
 	}
 
 	@Override

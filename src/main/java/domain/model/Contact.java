@@ -1,5 +1,6 @@
 package domain.model;
 
+import java.sql.Timestamp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,15 +9,13 @@ public class Contact {
     private String lastName;
     private String email;
     private String fitness;
-    private String hour;
-    private String date;
-    private int gsm;
+    private Timestamp date;
+    private String gsm;
 
-    public Contact(String firstName, String lastName, String email, String hour, String date, int gsm, String fitness) {
+    public Contact(String firstName, String lastName, String email, Timestamp date, String gsm, String fitness) {
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
-        setHour(hour);
         setDate(date);
         setGsm(gsm);
         setFitness(fitness);
@@ -24,19 +23,12 @@ public class Contact {
 
     public Contact() {}
 
-    public void setGsm(int gsm) {
-        if(gsm < 0) {
-            throw new IllegalArgumentException("False gsm number");
-        }
+    public void setGsm(String gsm) {
         this.gsm = gsm;
     }
 
-    public void setDate(String date) {
+    public void setDate(Timestamp date) {
         this.date = date;
-    }
-
-    public void setHour(String hour) {
-        this.hour = hour;
     }
 
     public void setEmail(String email) {
@@ -93,15 +85,11 @@ public class Contact {
         return email;
     }
 
-    public String getHour() {
-        return hour;
-    }
-
-    public String getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public int getGsm() {
+    public String getGsm() {
         return gsm;
     }
 }

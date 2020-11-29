@@ -36,7 +36,7 @@ public class RegisterTest {
 		submitForm(useridRandom, "Jan", "Janssens", "jan.janssens@hotmail.com" , "1234");
 		
 		String title = driver.getTitle();
-		assertEquals("Overview",title);
+		assertEquals("Home",title);
 		
 		driver.get(path+"?command=Overview");
 		

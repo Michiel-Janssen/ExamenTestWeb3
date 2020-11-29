@@ -1,43 +1,69 @@
 package ui.controller;
 
+import domain.db.DbException;
 import domain.model.Contact;
 import domain.model.DomainException;
+import domain.model.Role;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 public class addContacts extends RequestHandler {
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        Role[] roles = {Role.ADMIN};
+        Utility.checkRole(request, roles);
+
         List<String> result = new ArrayList<String>();
         Contact contact = new Contact();
 
         setFirstName(contact, request, result);
         setLastName(contact, request, result);
         setDate(contact, request, result);
-        setHour(contact, request, result);
         setGSM(contact, request, result);
         setEmail(contact, request, result);
         setFitness(contact, request, result);
 
-        String destination;
         if (result.size() > 0) {
-            request.setAttribute("result", result);
-            destination = "contacts.jsp";
+            try {
+                service.addContact(contact);
+                clearPreviousValues(request);
+                response.sendRedirect("Controller?command=Contacts");
+            } catch (DbException | IOException e) {
+                result.add(e.getMessage());
+            }
         } else {
-            contactService.add(contact);
-            destination = "Controller?command=Contacts";
+            try {
+                request.setAttribute("result", result);
+                request.getRequestDispatcher("Controller?command=Contacts").forward(request, response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
         }
-        return destination;
     }
+
+
+    private void clearPreviousValues(HttpServletRequest request) {
+        request.removeAttribute("voornaamVorige");
+        request.removeAttribute("naamVorige");
+        request.removeAttribute("dateVorige");
+        request.removeAttribute("uurVorige");
+        request.removeAttribute("gsmVorige");
+        request.removeAttribute("emailVorige");
+    }
+
+    //Setters
 
     private void setGSM(Contact contact, HttpServletRequest request, List<String> result) {
         String gsm = request.getParameter("gsm");
         request.setAttribute("gsmVorige", gsm);
         try {
-            contact.setGsm(Integer.parseInt(gsm));
+            contact.setGsm(gsm);
             request.setAttribute("nameClass", "has-succes");
         } catch (DomainException exc) {
             result.add(exc.getMessage());
@@ -45,27 +71,17 @@ public class addContacts extends RequestHandler {
         }
     }
 
-    private void setHour(Contact contact, HttpServletRequest request, List<String> result) {
-        String hour = request.getParameter("hour");
-        request.setAttribute("hourVorige", hour);
-        try {
-            contact.setHour(hour);
-            request.setAttribute("nameClass", "has-succes");
-        } catch (DomainException exc) {
-            result.add(exc.getMessage());
-            request.setAttribute("nameClass", "has-error");
-        }
-    }
 
     private void setDate(Contact contact, HttpServletRequest request, List<String> result) {
-        String date = request.getParameter("date");
-        request.setAttribute("dateVorige", date);
+        String datum = request.getParameter("date").trim();
+        String hour = request.getParameter("hour").trim();
         try {
+            Timestamp date = Timestamp.valueOf(datum + " " + hour + ":00");
             contact.setDate(date);
-            request.setAttribute("nameClass", "has-succes");
-        } catch (DomainException exc) {
-            result.add(exc.getMessage());
-            request.setAttribute("nameClass", "has-error");
+            request.setAttribute("dateVorige", datum);
+            request.setAttribute("uurVorige", hour);
+        } catch (Exception e) {
+            result.add(e.getMessage());
         }
     }
 

@@ -51,15 +51,17 @@
 			</c:if>
 			<c:if test = "${not empty user}">
 
-				<h2>Welcome ${user}, you are registered in the ${fitness} fitness!</h2>
+				<h2>Welcome ${user.firstName}, you are registered</h2>
 
 				<form method="POST" action="Controller?command=LogOut" novalidate="novalidate">
 
 					<p><input type="submit" id="logOut" value="Log out"></p>
 
 				</form>
-
 			</c:if>
+				<c:if test="${user.role=='ADMIN'}">
+					<a href="coronaPositive.jsp"><p><input type="submit" id="coronapositive" value="I'm Corona Positive"></p></a>
+				</c:if>
 		</main>
 		<footer> &copy; Webontwikkeling 3, UC Leuven-Limburg </footer>
 	</div>
