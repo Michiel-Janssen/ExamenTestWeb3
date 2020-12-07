@@ -12,10 +12,10 @@
 <body>
 <div id="container">
     <header>
-        <c:if test = "${not empty result}">
+        <c:if test = "${not empty errors}">
             <div class="alert-danger">
                 <ul>
-                    <c:forEach items = "${result}" var="error">
+                    <c:forEach items = "${errors}" var="error">
                         <li>${error}</li>
                     </c:forEach>
                 </ul>
@@ -37,8 +37,8 @@
     <main>
         <form method="POST" action="Controller?command=CoronaPositiveAdd" novalidate="novalidate">
             <!-- novalidate in order to be able to run tests correctly -->
-            <p><label for="id">Id</label><input type="text" id="id" name="id" value="${lastId}" required> </p>
-            <p><label for="date">Date</label><input type="date" id="date" name="date" value="${lastDate}" required> </p>
+            <p><label for="id">Id</label><input type="text" id="id" name="id" value="<c:out value="${lastId}"/>" required> </p>
+            <p><label for="date">Date</label><input type="text" id="date" name="date" value="<c:out value="${lastDate}"/>" required> </p>
             <p><input type="submit" id="confirm" value="Confirm"></p>
         </form>
     </main>

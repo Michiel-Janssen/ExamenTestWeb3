@@ -31,7 +31,7 @@ public class Service {
         return contactdb.popularFitness();
     }
 
-    public List<Contact> getPossibleCorona(String Date) {return  contactdb.getPossibleCorona(Date);}
+    public List<Contact> getPossibleCorona(String Email) {return contactdb.getPossibleCorona(Email);}
 
     //CoronaPositive
 
@@ -51,5 +51,9 @@ public class Service {
 
     public List<Person> getPersonAll(){
         return persondb.getAll();
+    }
+
+    public Person get(String id) {
+        return persondb.get(id);
     }
 }

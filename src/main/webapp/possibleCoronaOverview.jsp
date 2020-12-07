@@ -36,11 +36,11 @@
         </tr>
         <c:forEach var="possibleCorona" items="${possibleCorona}">
             <tr>
-                <td>${contact.firstName}</td>
-                <td>${contact.lastName}</td>
-                <td>${contact.GSM}</td>
-                <td>${contact.email}</td>
-                <td>${contact.fitness}</td>
+                <td><c:out value="${contact.firstName}"/></td>
+                <td><c:out value="${contact.lastName}"/></td>
+                <td><c:out value="${contact.GSM}"/></td>
+                <td><c:out value="${contact.email}"/></td>
+                <td><c:out value="${contact.fitness}"/></td>
             </tr>
         </c:forEach>
     </table>

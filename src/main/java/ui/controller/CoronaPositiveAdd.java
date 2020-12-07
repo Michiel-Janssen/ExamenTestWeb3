@@ -18,38 +18,28 @@ public class CoronaPositiveAdd extends RequestHandler {
         Role[] roles = {Role.CUSTOMER};
         Utility.checkRole(request, roles);
 
-        List<String> result = new ArrayList<String>();
+        List<String> errors = new ArrayList<String>();
+
         CoronaPositiveModel coronaPositiveModel = new CoronaPositiveModel();
+        setDate(coronaPositiveModel, request, errors);
+        setId(coronaPositiveModel, request, errors);
 
-        setDate(coronaPositiveModel, request, result);
-        setId(coronaPositiveModel, request, result);
-
-        if (result.size() > 0) {
+        if (errors.size() == 0) {
             try {
                 service.addCoronaPositive(coronaPositiveModel);
-                clearPreviousValues(request);
-                response.sendRedirect("Controller?command=CoronaOverview");
+                response.sendRedirect("Controller?command=Index");
             } catch (DbException e) {
-                result.add(e.getMessage());
+                errors.add(e.getMessage());
             }
         } else {
             try {
-                request.setAttribute("result", result);
-                request.getRequestDispatcher("Controller?command=CoronaOverview").forward(request, response);
+                request.setAttribute("errors", errors);
+                request.getRequestDispatcher("Controller?command=CoronaPositive_Pag").forward(request, response);
             } catch (ServletException e) {
                 e.printStackTrace();
             }
         }
 
-    }
-
-    private void clearPreviousValues(HttpServletRequest request) {
-        request.removeAttribute("voornaamVorige");
-        request.removeAttribute("naamVorige");
-        request.removeAttribute("datumVorige");
-        request.removeAttribute("uurVorige");
-        request.removeAttribute("gsmVorige");
-        request.removeAttribute("emailVorige");
     }
 
     private void setDate(CoronaPositiveModel coronaPositiveModel, HttpServletRequest request, List<String> result) {

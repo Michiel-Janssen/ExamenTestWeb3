@@ -16,6 +16,6 @@
     </context-param>
     <context-param>
         <param-name>schema</param-name>
-        <param-value>JanssenMichielWeb3</param-value>
+        <param-value>web3_project_r0789294</param-value>
     </context-param>
 </web-app>

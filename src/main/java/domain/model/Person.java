@@ -15,7 +15,7 @@ public class Person {
 	private String lastName;
 	private Role role;
 
-	public Person(String userid, String firstName, String lastName, String password, String email) {
+	public Person(String userid, String firstName, String lastName, String password, String email, Role role) {
 		setUserid(userid);
 		setFirstName(firstName);
 		setLastName(lastName);

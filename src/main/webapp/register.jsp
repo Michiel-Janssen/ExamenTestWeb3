@@ -25,22 +25,24 @@ Register
 </h2>
 
 </header><main>
-<c:if test = "${not empty result}">
+<c:if test = "${not empty errors}">
 	<div class="alert-danger">
 		<ul>
-            <c:forEach items = "${result}" var="error">
+            <c:forEach items = "${errors}" var="error">
                 <li>${error}</li>
             </c:forEach>
 		</ul>
 	</div>
 </c:if>
+
     <form method="POST" action="Controller?command=Register" novalidate="novalidate">
     	<!-- novalidate in order to be able to run tests correctly -->
-        <p><label for="userid">User id</label><input type="text" id="userid" name="userid" value="${lastId}" required> </p>
-        <p><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" value="${lastFirstName}" required> </p>
-        <p><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value="${lastLastName}" required> </p>
-        <p><label for="password">Password</label><input type="password" id="password"  name="password" value="${lastPassword}" required> </p>
-        <p><label for="email">Email</label><input type="email" id="email" name="email" value="${lastEmail}" required></p>
+        <p><label for="userid">User id</label><input type="text" id="userid" name="userid" value="<c:out value="${lastId}"/>" required> </p>
+        <p><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" value="<c:out value="${lastFirstName}"/>" required> </p>
+        <p><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value="<c:out value="${lastLastName}"/>" required> </p>
+        <p><label for="password">Password</label><input type="password" id="password"  name="password" value="<c:out value="${lastPassword}"/>" required> </p>
+        <p><label for="email">Email</label><input type="email" id="email" name="email" value="<c:out value="${lastEmail}"/>" required></p>
+        <p><label for="role">Role</label><input type="text" id="role" name="role" value="<c:out value="${lastRole}"/>" required></p>
         <p><input type="submit" id="signUp" value="Sign Up"></p>
         
     </form>

@@ -1,5 +1,6 @@
 
 import domain.model.Person;
+import domain.model.Role;
 import util.Credentials;
 
 import java.io.UnsupportedEncodingException;
@@ -42,8 +43,10 @@ public class ConnectionTest extends Credentials {
             String lastName = result.getString("lastName");
             String password = result.getString("password");
             String email = result.getString("email");
+            String roleString = result.getString("role");
+            Role role = Role.valueOf(roleString.toUpperCase());
             try {
-                Person person = new Person(id, firstName, lastName, password, email);
+                Person person = new Person(id, firstName, lastName, password, email, role);
                 System.out.println(person.toString());
             }
             catch (IllegalArgumentException e) {

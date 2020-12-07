@@ -31,14 +31,15 @@ public class ContactDBSQL implements ContactDB {
             throw new DbException("Nothing to add.");
         }
         try {
-            PreparedStatement statementSQL = connection.prepareStatement("INSERT INTO \"web3_project_r0789294\".contact (\"firstname\", \"lastname\", \"email\", \"date\", \"gsm\", \"fitness\") VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement statementSQL = connection.prepareStatement("INSERT INTO \"web3_project_r0789294\".contact (\"firstname\", \"lastname\", \"email\", \"date\", \"gsm\", \"fitness\") VALUES (?,?,?,?,?,?)");
             statementSQL.setString(1, contact.getFirstName());
             statementSQL.setString(2, contact.getLastName());
             statementSQL.setString(3, contact.getEmail());
-            statementSQL.setObject(5, contact.getDate());
-            statementSQL.setString(6, contact.getGsm());
-            statementSQL.setString(7, contact.getFitness());
+            statementSQL.setObject(4, contact.getDate());
+            statementSQL.setString(5, contact.getGsm());
+            statementSQL.setString(6, contact.getFitness());
             statementSQL.execute();
+            System.out.println(statementSQL);
         } catch (SQLException e) {
             throw new DbException(e);
         }
@@ -122,21 +123,21 @@ public class ContactDBSQL implements ContactDB {
 
     //SQL Van mensen die in contact zijn gekomen met een corona patiënt
     @Override
-    public List<Contact> getPossibleCorona(String Date) {
+    public List<Contact> getPossibleCorona(String email) {
         List<Contact> contacts = new ArrayList<Contact>();
-        String sql = String.format("SELECT * from \"web3_project_r0789294\".\"contact\" WHERE date = ?", this.schema);
+        String sql = String.format("SELECT * from \"web3_project_r0789294\".\"contact\" WHERE email = ?", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
-            statementSql.setString(1, Date);
+            statementSql.setString(1, email);
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
                 String firstName = result.getString("firstname");
                 String lastName = result.getString("lastname");
-                String email = result.getString("email");
+                String Email = result.getString("email");
                 Timestamp date = result.getObject("date", Timestamp.class);
                 String gsm = result.getString("gsm");
                 String fitness = result.getString("fitness");
-                Contact c = new Contact(firstName, lastName, email, date, gsm, fitness);
+                Contact c = new Contact(firstName, lastName, Email, date, gsm, fitness);
                 contacts.add(c);
             }
         } catch (SQLException throwables) {

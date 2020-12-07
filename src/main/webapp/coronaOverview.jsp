@@ -27,22 +27,21 @@
     </header><main>
     <table>
         <tr>
-            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
             <th>Date</th>
         </tr>
-        <c:forEach var="coronaPositive" items="${coronaPositives}">
+        <c:forEach var="person" items="${contactPersons}">
             <tr>
-                <td>${coronaPositive.id}</td>
-                <td>${coronaPositive.date}</td>
+                <td><c:out value="${person.firstName} ${person.lastName}"/></td>
+                <td><c:out value="${person.email}"/></td>
+        </c:forEach>
+        <c:forEach var="datumsCorona" items="${coronadatums}">
+                <td><c:out value="${datumsCorona}"/></td>
             </tr>
         </c:forEach>
         <caption>Corona Positive Overview</caption>
     </table>
-
-    <form method="POST" action="Controller?command=PossibleCoronaDate" novalidate="novalidate">
-        <!-- novalidate in order to be able to run tests correctly -->
-        <p><label for="date">Date</label><input type="text" id="date" name="date" value="${lastDate}" required> </p>
-    </form>
 </main>
     <footer>
         &copy; Webontwikkeling 3, UC Leuven-Limburg

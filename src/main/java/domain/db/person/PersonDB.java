@@ -22,4 +22,6 @@ public interface PersonDB {
      */
 
     List<Person> getAll();
+
+    Person get(String id);
 }

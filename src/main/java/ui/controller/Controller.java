@@ -18,10 +18,6 @@ public class Controller extends HttpServlet {
     private Service service = new Service();
     private HandlerFactory handlerFactory = new HandlerFactory();
 
-    public Controller() {
-        super();
-    }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -33,18 +29,14 @@ public class Controller extends HttpServlet {
     private void processRequest (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String command = request.getParameter("command");
         if(command == null || command.isEmpty())
-            command = "Home";
+            command = "Index";
         RequestHandler handler = handlerFactory.getHandler(command, service);
 
         try {
             handler.handleRequest(request, response);
-        } catch (NotAuthorizedException | NoSuchAlgorithmException e) {
+        } catch (NotAuthorizedException e) {
             request.setAttribute("notAutorized", "You have insufficient rights to have a look at this page.");
-            try {
-                handlerFactory.getHandler("Home", service).handleRequest(request,response);
-            } catch (NoSuchAlgorithmException noSuchAlgorithmException) {
-                noSuchAlgorithmException.printStackTrace();
-            }
+            handlerFactory.getHandler("Index", service).handleRequest(request,response);
         }
     }
 }

@@ -12,10 +12,10 @@
 <body>
 	<div id="container">
 		<header>
-			<c:if test = "${not empty result}">
+			<c:if test = "${not empty errors}">
 				<div class="alert-danger">
 					<ul>
-						<c:forEach items = "${result}" var="error">
+						<c:forEach items = "${errors}" var="error">
 							<li>${error}</li>
 						</c:forEach>
 					</ul>
@@ -32,36 +32,47 @@
 				</ul>
 			</nav>
 			<h2>Home</h2>
-
+			<c:if test="${notAutorized != null}">
+				<p class="alert-danger" ${notAutorized} </p>
+			</c:if>
 		</header>
 		<main>
-			<c:if test = "${empty user}">
+			<c:choose>
+				<c:when test = "${not empty user}">
 
-				<form method="POST" action="Controller?command=Login" novalidate="novalidate">
+					<h2>Welcome <c:out value="${user.firstName}"/>, you are registered</h2>
 
-					<p><label for="userid">User id</label>
-						<input type="text" id="userid" name="userid" value="${loginId}" required > </p>
+					<form method="POST" action="Controller?command=LogOut" novalidate="novalidate">
 
-					<p><label for="password">Password</label>
-						<input type="password" id="password"  name="password" required > </p>
+						<p><input type="submit" id="logOut" value="Log out"></p>
 
-					<p><input type="submit" id="logIn" value="Log in"></p>
-				</form>
+					</form>
+					<form method="POST" action="Controller?command=CoronaPositive_Pag" novalidate="novalidate">
 
-			</c:if>
-			<c:if test = "${not empty user}">
+						<p><input type="submit" id="CoronaPositive_Pag" value="Corona Positive"></p>
 
-				<h2>Welcome ${user.firstName}, you are registered</h2>
+					</form>
+				</c:when>
+				<c:otherwise>
+					<c:if test="${not empty fout}">
+						<div class="alert-danger">
+							<ul>
+								<li><c:out value="${fout}"/></li>
+							</ul>
+						</div>
+					</c:if>
+					<form method="POST" action="Controller?command=Login" novalidate="novalidate">
 
-				<form method="POST" action="Controller?command=LogOut" novalidate="novalidate">
+						<p><label for="userid">User id</label>
+							<input type="text" id="userid" name="userid" value="<c:out value="${loginId}"/>" required > </p>
 
-					<p><input type="submit" id="logOut" value="Log out"></p>
+						<p><label for="password">Password</label>
+							<input type="password" id="password"  name="password" required > </p>
 
-				</form>
-			</c:if>
-				<c:if test="${user.role=='ADMIN'}">
-					<a href="coronaPositive.jsp"><p><input type="submit" id="coronapositive" value="I'm Corona Positive"></p></a>
-				</c:if>
+						<p><input type="submit" id="logIn" value="Log in"></p>
+					</form>
+				</c:otherwise>
+			</c:choose>
 		</main>
 		<footer> &copy; Webontwikkeling 3, UC Leuven-Limburg </footer>
 	</div>

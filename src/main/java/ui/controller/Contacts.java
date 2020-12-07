@@ -13,7 +13,7 @@ import java.util.List;
 public class Contacts extends RequestHandler {
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response){
-        Role[] roles = {Role.ADMIN};
+        Role[] roles = {Role.ADMIN, Role.CUSTOMER};
         Utility.checkRole(request, roles);
 
         try {
