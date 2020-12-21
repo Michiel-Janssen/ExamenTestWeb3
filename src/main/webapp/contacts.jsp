@@ -38,14 +38,14 @@
     <table>
         <c:if test="${user.role=='ADMIN'}">
             <tr>
-                <th>Date</th>
                 <th>Name</th>
+                <th>Email</th>
                 <th>Fitness</th>
             </tr>
             <c:forEach var="contact" items="${contacts}">
                 <tr>
-                    <td><c:out value="${contact.date}"/></td>
                     <td><c:out value="${contact.firstName} ${contact.lastName}"/></td>
+                    <td><c:out value="${contact.email}"/></td>
                     <td><c:out value="${contact.fitness}"/></td>
                 </tr>
             </c:forEach>
@@ -57,12 +57,12 @@
         <c:if test="${user.role=='CUSTOMER'}">
         <form method="POST" action="Controller?command=addContacts" novalidate="novalidate">
             <!-- novalidate in order to be able to run tests correctly -->
-            <p><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" value="<c:out value="${voornaamVorige}"/>" required> </p>
-            <p><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value="<c:out value="${naamVorige}"/>" required> </p>
-            <p><label for="hour">Hour</label><input type="text" id="hour" name="hour" value="<c:out value="${uurVorige}"/>" required > </p>
-            <p><label for="date">Date</label><input type="text" id="date" name="date" value="<c:out value="${dateVorige}"/>" required></p>
-            <p><label for="gsm">GSM</label><input type="text" id="gsm" name="gsm" value="<c:out value="${gsmVorige}"/>" required > </p>
-            <p><label for="email">Email</label><input type="email" id="email" name="email" value="<c:out value="${emailVorige}"/>" required></p>
+            <p><label for="firstName">First Name</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="firstName" name="firstName" value="<c:out value="${voornaamVorige}"/>" required> </p>
+            <p><label for="lastName">Last Name</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="lastName" name="lastName" value="<c:out value="${naamVorige}"/>" required> </p>
+            <p><label for="hour">Hour</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="hour" name="hour" value="<c:out value="${uurVorige}"/>" required > </p>
+            <p><label for="date">Date</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="date" name="date" value="<c:out value="${dateVorige}"/>" required></p>
+            <p><label for="gsm">GSM</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="gsm" name="gsm" value="<c:out value="${gsmVorige}"/>" required > </p>
+            <p><label for="email">Email</label><input type="email" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,50}$" id="email" name="email" value="<c:out value="${emailVorige}"/>" required></p>
             <label for="fitness">Choose a fitness:</label>
 
             <select name="fitness" id="fitness">
@@ -83,3 +83,93 @@
 </div>
 </body>
 </html>
+<script>
+    window.addEventListener("load", initPage, false);
+
+    function initPage() {
+
+        document.addEventListener("blur", checkField, true);
+
+        document.addEventListener("submit", finalValidation, false);
+    }
+
+    function finalValidation(event) {
+        let fields = event.target.elements;
+        let error, hasErrors;
+        for (let i = 0; i < fields.length; i++) {
+            error = hasError(fields[i]);
+            if (error) {
+                showError(fields[i], error);
+                if (!hasErrors) {
+                    hasErrors = fields[i];
+                }
+            }
+
+        }
+
+        if (hasErrors) {
+            event.preventDefault();
+            hasErrors.focus();
+        }
+
+    }
+
+    function checkField(event) {
+        let error = hasError(event.target);
+        if (error)
+            showError(event.target, error);
+        else
+            removeError(event.target);
+    }
+
+    function hasError(field) {
+        if (field.disabled || field.type === "file" || field.type === "submit")
+            return;
+
+        let validity = field.validity;
+        if (validity == null || validity.valid) {
+            return;
+        }
+
+        if (validity.valueMissing) {
+            return "Please fill out a value";
+        }
+        if (validity.typeMismatch) {
+            return "Please use the correct input type";
+        }
+        if (validity.patternMismatch) {
+            if (field.type === "email") {
+                return "This is not a valid email.";
+            }
+            if (field.type === "tel") {
+                return "This is not a valid phonenumber"
+            }
+        }
+        return "Please complete the form correct";
+    }
+
+    function removeError(field) {
+        if (field.classList != null && field.classList.length > 0) {
+            field.classList.remove("error");
+            let id = field.id;
+            let message = document.getElementById("error-for-" + id);
+            if (message != null)
+                message.parentNode.removeChild(message);
+        }
+    }
+
+    function showError(field, error) {
+        field.classList.add("error");
+        let id = field.id;
+        if (!id)
+            return;
+        let message = document.getElementById("error-for-" + id);
+        if (!message) {
+            message = document.createElement("span");
+            message.className = "error";
+            message.id = "error-for-" + id;
+            field.parentNode.insertBefore(message, field.nextSibling);
+        }
+        message.innerHTML = error;
+    }
+</script>

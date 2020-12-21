@@ -25,6 +25,21 @@
         </h2>
 
     </header><main>
+
+    <form method="POST" action="Controller?command=filterContacts" novalidate="novalidate">
+    <p>
+        <label for="from">from</label>
+        <input type="date" id="from" name="from">
+        <label for="until">until</label>
+        <input type="date" id="until" name="until">
+        <input type="submit" id="filter" value="filter">
+    </p>
+    </form>
+
+    <form method="POST" action="Controller?command=CoronaOverview" novalidate="novalidate">
+        <input type="submit" id="clearfilter" value="clearfilter">
+    </form>
+
     <table>
         <tr>
             <th>Name</th>

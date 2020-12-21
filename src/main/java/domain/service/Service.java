@@ -10,6 +10,7 @@ import domain.model.Contact;
 import domain.model.CoronaPositiveModel;
 import domain.model.Person;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class Service {
@@ -43,6 +44,10 @@ public class Service {
         return coronaPositivedb.getAll();
     }
 
+    public List<CoronaPositiveModel> getCoronaPositiveAllFiltered(Timestamp from, Timestamp until) {
+        return coronaPositivedb.getAllFiltered(from, until);
+    }
+
     //Person
 
     public void addPerson(Person person){
@@ -57,3 +62,4 @@ public class Service {
         return persondb.get(id);
     }
 }
+

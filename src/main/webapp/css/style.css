@@ -43,6 +43,10 @@ nav ul li a{
 	display: block;
 }
 
+nav ul li a:hover {
+	background-color: #888888;
+}
+
 nav ul li#actual {
 	background-color: #f3dc04;
 }
@@ -168,6 +172,9 @@ input {
 	}
 	nav ul li a {
 		text-align: center;
+	}
+	nav ul li a:hover {
+		background-color: #888888;
 	}
 	footer {
 		text-align: right;

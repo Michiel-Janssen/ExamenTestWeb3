@@ -53,7 +53,7 @@ public class ContactDBSQL implements ContactDB {
      */
     public List<Contact> getAll() {
         List<Contact> contacten = new ArrayList<Contact>();
-        String sql = String.format("SELECT * from \"web3_project_r0789294\".contact", this.schema);
+        String sql = String.format("SELECT * from \"web3_project_r0789294\".contact order by date", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();

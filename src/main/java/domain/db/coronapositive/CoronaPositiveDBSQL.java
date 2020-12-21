@@ -4,10 +4,7 @@ import domain.db.DbException;
 import domain.model.CoronaPositiveModel;
 import util.DbConnectionService;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +37,30 @@ public class CoronaPositiveDBSQL implements CoronaPositiveDB {
     @Override
     public List<CoronaPositiveModel> getAll() {
         List<CoronaPositiveModel> coronaPositiveModels = new ArrayList<CoronaPositiveModel>();
-        String sql = String.format("SELECT * from \"web3_project_r0789294\".coronapositive", this.schema);
+        String sql = String.format("SELECT * from \"web3_project_r0789294\".coronapositive order by date", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
+            ResultSet result = statementSql.executeQuery();
+            while (result.next()) {
+                String id = result.getString("id");
+                String date = result.getString("date");
+                CoronaPositiveModel coronaPositiveModel = new CoronaPositiveModel(date, id);
+                coronaPositiveModels.add(coronaPositiveModel);
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e);
+        }
+        return coronaPositiveModels;
+    }
+
+    @Override
+    public List<CoronaPositiveModel> getAllFiltered(Timestamp from, Timestamp until) {
+        List<CoronaPositiveModel> coronaPositiveModels = new ArrayList<CoronaPositiveModel>();
+        String sql = String.format("SELECT * from \"web3_project_r0789294\".coronapositive WHERE date BETWEEN ? and ? order by date", this.schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setTimestamp(1, from);
+            statementSql.setTimestamp(2, until);
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
                 String id = result.getString("id");

@@ -4,6 +4,7 @@ import domain.db.DbException;
 import domain.model.CoronaPositiveModel;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface CoronaPositiveDB {
@@ -23,4 +24,6 @@ public interface CoronaPositiveDB {
      */
 
     List<CoronaPositiveModel> getAll();
+
+    List<CoronaPositiveModel> getAllFiltered(Timestamp from, Timestamp until);
 }
