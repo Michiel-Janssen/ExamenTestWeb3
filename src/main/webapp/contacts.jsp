@@ -32,7 +32,7 @@
         <h2>
             Contacts
         </h2>
-        <p><p>De populairste fitness is ${populairsteFitness}</p></p>
+        <p>De populairste fitness is ${populairsteFitness}</p>
     </header>
     <main>
     <table>

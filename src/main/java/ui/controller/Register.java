@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Register extends RequestHandler {
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, NotAuthorizedException {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, NotAuthorizedException, ServletException {
         List<String> errors = new ArrayList<String>();
         Person person = new Person();
 
@@ -31,13 +31,14 @@ public class Register extends RequestHandler {
                 response.sendRedirect("Controller?command=Index");
             } catch (DbException e) {
                 errors.add(e.getMessage());
+                //forward
             }
-        } else {
+        } else {//if not response.iscommited
             try {
                 request.setAttribute("errors", errors);
                 request.getRequestDispatcher("Controller?command=Register_Pag").forward(request, response);
             } catch (ServletException e) {
-                e.printStackTrace();
+                e.printStackTrace();//geen printstacktrace, servlet afhandelen error.page
             }
         }
     }
