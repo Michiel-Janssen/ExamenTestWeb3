@@ -40,8 +40,8 @@ Register
         <p><label for="userid">User id</label><input type="text" id="userid" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" name="userid" value="<c:out value="${lastId}"/>" required> </p>
         <p><label for="firstName">First Name</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="firstName" name="firstName" value="<c:out value="${lastFirstName}"/>" required> </p>
         <p><label for="lastName">Last Name</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="lastName" name="lastName" value="<c:out value="${lastLastName}"/>" required> </p>
-        <p><label for="password">Password</label><input type="password" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="password"  name="password" value="<c:out value="${lastPassword}"/>" required> </p>
-        <p><label for="email">Email</label><input type="email" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="email" name="email" value="<c:out value="${lastEmail}"/>" required></p>
+        <p><label for="password">Password</label><input type="password" required pattern="[a-zA-Z0-9-_.]$" id="password"  name="password" value="<c:out value="${lastPassword}"/>" required> </p>
+        <p><label for="email">Email</label><input type="email" required pattern ="^[A-Za-z0-9+_.-]+@(.+)$" id="email" name="email" value="<c:out value="${lastEmail}"/>" required></p>
         <p><label for="role">Role</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="role" name="role" value="<c:out value="${lastRole}"/>" required></p>
         <p><input type="submit" id="signUp" value="Sign Up"></p>
         

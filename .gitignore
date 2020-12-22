@@ -8,4 +8,4 @@ log/
 target/
 
 # password
-/src/main/java/util/Credentials.java
+/src/main/java/util/Secret.java

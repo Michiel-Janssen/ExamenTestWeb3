@@ -28,17 +28,17 @@ public class Register extends RequestHandler {
         if(errors.size() == 0) {
             try {
                 service.addPerson(person);
-                response.sendRedirect("Controller?command=Index");
+                request.setAttribute("gelukt", "Succesvol geregistreerd");
+                request.getRequestDispatcher("Controller?command=Index").forward(request, response);
             } catch (DbException e) {
                 errors.add(e.getMessage());
-                //forward
             }
-        } else {//if not response.iscommited
+        } else {
             try {
                 request.setAttribute("errors", errors);
                 request.getRequestDispatcher("Controller?command=Register_Pag").forward(request, response);
             } catch (ServletException e) {
-                e.printStackTrace();//geen printstacktrace, servlet afhandelen error.page
+                System.out.println(e.getMessage());
             }
         }
     }

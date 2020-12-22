@@ -1,10 +1,12 @@
 package domain.model;
 
+import java.sql.Timestamp;
+
 public class CoronaPositiveModel {
-    private String date;
+    private Timestamp date;
     private String id;
 
-    public CoronaPositiveModel(String date, String id) {
+    public CoronaPositiveModel(Timestamp date, String id) {
         setDate(date);
         setId(id);
     }
@@ -13,7 +15,7 @@ public class CoronaPositiveModel {
 
     //Setters
 
-    public void setDate(String date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
@@ -23,7 +25,7 @@ public class CoronaPositiveModel {
 
     //Getters
 
-    public String getDate() {
+    public Timestamp getDate() {
         return date;
     }
 

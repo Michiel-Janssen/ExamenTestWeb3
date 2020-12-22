@@ -11,7 +11,7 @@ public class Index extends RequestHandler {
         try{
             request.getRequestDispatcher("index.jsp").forward(request, response);
         } catch (ServletException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }

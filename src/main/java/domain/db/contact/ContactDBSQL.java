@@ -41,7 +41,7 @@ public class ContactDBSQL implements ContactDB {
             statementSQL.execute();
             System.out.println(statementSQL);
         } catch (SQLException e) {
-            throw new DbException(e);
+            throw new DbException(e.getMessage());
         }
     }
 

@@ -12,15 +12,6 @@
 <body>
 	<div id="container">
 		<header>
-			<c:if test = "${not empty errors}">
-				<div class="alert-danger">
-					<ul>
-						<c:forEach items = "${errors}" var="error">
-							<li>${error}</li>
-						</c:forEach>
-					</ul>
-				</div>
-			</c:if>
 			<h1>
 				<span>XXX</span>
 			</h1>
@@ -39,6 +30,10 @@
 		<main>
 			<c:choose>
 				<c:when test = "${not empty user}">
+
+					<c:if test="${gelukt!=null}">
+						<p class="alert-feedback">${gelukt}</p>
+					</c:if>
 
 					<h2>Welcome <c:out value="${user.firstName}"/>, you are registered</h2>
 
@@ -61,6 +56,9 @@
 							</ul>
 						</div>
 					</c:if>
+					<c:if test="${geluktUitloggen!=null}">
+						<p class="alert-feedback">${geluktUitloggen}</p>
+					</c:if>
 					<form method="POST" action="Controller?command=Login" novalidate="novalidate">
 
 						<p><label for="userid">User id</label>
@@ -76,5 +74,17 @@
 		</main>
 		<footer> &copy; Webontwikkeling 3, UC Leuven-Limburg </footer>
 	</div>
+	<script>
+		var element = document.getElementsByClassName("nav-list")[0];
+		element.addEventListener("click", myFunction);
+		function myFunction(e) {
+			var elems = document.querySelector(".active");
+			if(elems !=null) {
+				elems.classList.remove("active");
+			}
+			e.target.className = "active";
+		}
+	</script>
 </body>
 </html>
+

@@ -23,6 +23,7 @@ public class Login extends RequestHandler {
 
             if (person != null && person.isCorrectHashedPassword(request.getParameter("password"))) {
                 HttpSession session = request.getSession();
+                request.setAttribute("gelukt", "Succesvol ingelogd");
                 session.setAttribute("user", person);
             } else {
                 request.setAttribute("fout", "Wrong password");

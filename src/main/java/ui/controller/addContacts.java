@@ -33,8 +33,9 @@ public class addContacts extends RequestHandler {
             try {
                 service.addContact(contact);
                 clearPreviousValues(request);
-                response.sendRedirect("Controller?command=Contacts");
-            } catch (DbException | IOException e) {
+                request.setAttribute("gelukt", "Succesvol een contact toegevoegd");
+                request.getRequestDispatcher("Controller?command=Contacts").forward(request, response);
+            } catch (DbException | IOException | ServletException e) {
                 errors.add(e.getMessage());
             }
         } else {
@@ -64,9 +65,9 @@ public class addContacts extends RequestHandler {
         try {
             contact.setGsm(gsm);
             request.setAttribute("nameClass", "has-succes");
-        } catch (DomainException exc) {
-            errors.add(exc.getMessage());
+        } catch (Exception exc) {
             request.setAttribute("nameClass", "has-error");
+            errors.add(exc.getMessage());
         }
     }
 
@@ -90,8 +91,8 @@ public class addContacts extends RequestHandler {
             contact.setFitness(fitness);
             request.setAttribute("nameClass", "has-succes");
         } catch (Exception exc) {
-            errors.add(exc.getMessage());
             request.setAttribute("nameClass", "has-error");
+            errors.add(exc.getMessage());
         }
     }
 
@@ -101,9 +102,9 @@ public class addContacts extends RequestHandler {
         try {
             contact.setEmail(email);
             request.setAttribute("nameClass", "has-succes");
-        } catch (DomainException exc) {
-            errors.add(exc.getMessage());
+        } catch (Exception exc) {
             request.setAttribute("nameClass", "has-error");
+            errors.add(exc.getMessage());
         }
     }
 
@@ -113,9 +114,9 @@ public class addContacts extends RequestHandler {
         try {
             contact.setFirstName(firstName);
             request.setAttribute("nameClass", "has-succes");
-        } catch (DomainException exc) {
-            errors.add(exc.getMessage());
+        } catch (Exception exc) {
             request.setAttribute("nameClass", "has-error");
+            errors.add(exc.getMessage());
         }
     }
 
@@ -125,9 +126,9 @@ public class addContacts extends RequestHandler {
         try {
             contact.setLastName(lastName);
             request.setAttribute("nameClass", "has-succes");
-        } catch (DomainException exc) {
-            errors.add(exc.getMessage());
+        } catch (Exception exc) {
             request.setAttribute("nameClass", "has-error");
+            errors.add(exc.getMessage());
         }
     }
 }

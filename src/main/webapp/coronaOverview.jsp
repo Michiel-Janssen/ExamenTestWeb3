@@ -32,6 +32,8 @@
         <input type="date" id="from" name="from">
         <label for="until">until</label>
         <input type="date" id="until" name="until">
+        <label for="personId">Person ID</label>
+        <input type="text" id="personId" name="personId">
         <input type="submit" id="filter" value="filter">
     </p>
     </form>
@@ -46,14 +48,11 @@
             <th>Email</th>
             <th>Date</th>
         </tr>
-        <c:forEach var="person" items="${contactPersons}">
+        <c:forEach var="date" items="${CoronaPatienten.keySet()}">
             <tr>
-                <td><c:out value="${person.firstName} ${person.lastName}"/></td>
-                <td><c:out value="${person.email}"/></td>
-        </c:forEach>
-        <c:forEach var="datumsCorona" items="${coronadatums}">
-                <td><c:out value="${datumsCorona}"/></td>
-            </tr>
+                <td><c:out value="${CoronaPatienten.get(date).firstName} ${CoronaPatienten.get(date).lastName}"/></td>
+                <td><c:out value="${CoronaPatienten.get(date).email}"/></td>
+                <td><c:out value="${date}"/></td>
         </c:forEach>
         <caption>Corona Positive Overview</caption>
     </table>

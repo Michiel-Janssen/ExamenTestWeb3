@@ -10,8 +10,10 @@ import domain.model.Contact;
 import domain.model.CoronaPositiveModel;
 import domain.model.Person;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 public class Service {
     private PersonDB persondb = new PersonDBSQL();
@@ -40,12 +42,22 @@ public class Service {
         coronaPositivedb.add(coronaPositiveModel);
     }
 
-    public List<CoronaPositiveModel> getCoronaPositiveAll(){
+    /*public List<CoronaPositiveModel> getCoronaPositiveAll(){
         return coronaPositivedb.getAll();
     }
 
-    public List<CoronaPositiveModel> getCoronaPositiveAllFiltered(Timestamp from, Timestamp until) {
+     */
+
+    public Map<Timestamp, Person> getAll() {
+        return coronaPositivedb.getAll();
+    }
+
+    public Map<Timestamp, Person> getCoronaPositiveAllFiltered(Timestamp from, Timestamp until) {
         return coronaPositivedb.getAllFiltered(from, until);
+    }
+
+    public Map<Timestamp, Person> getAllFilteredWithPerson(Timestamp from, Timestamp until, String id) {
+        return coronaPositivedb.getAllFilteredWithPerson(from, until, id);
     }
 
     //Person
@@ -61,5 +73,6 @@ public class Service {
     public Person get(String id) {
         return persondb.get(id);
     }
+
 }
 

@@ -12,15 +12,6 @@
 <body>
 <div id="container">
     <header>
-        <c:if test = "${not empty errors}">
-            <div class="alert-danger">
-                <ul>
-                    <c:forEach items = "${errors}" var="error">
-                        <li>${error}</li>
-                    </c:forEach>
-                </ul>
-            </div>
-        </c:if>
         <h1><span>XXX</span></h1>
         <nav>
             <ul>
@@ -55,14 +46,26 @@
             </form>
         </c:if>
         <c:if test="${user.role=='CUSTOMER'}">
+            <c:if test = "${not empty errors}">
+                <div class="alert-danger">
+                    <ul>
+                        <c:forEach items = "${errors}" var="error">
+                            <li>${error}</li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </c:if>
+            <c:if test="${gelukt!=null}">
+                <p class="alert-feedback">${gelukt}</p>
+            </c:if>
         <form method="POST" action="Controller?command=addContacts" novalidate="novalidate">
             <!-- novalidate in order to be able to run tests correctly -->
-            <p><label for="firstName">First Name</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="firstName" name="firstName" value="<c:out value="${voornaamVorige}"/>" required> </p>
-            <p><label for="lastName">Last Name</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="lastName" name="lastName" value="<c:out value="${naamVorige}"/>" required> </p>
-            <p><label for="hour">Hour</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="hour" name="hour" value="<c:out value="${uurVorige}"/>" required > </p>
-            <p><label for="date">Date</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="date" name="date" value="<c:out value="${dateVorige}"/>" required></p>
-            <p><label for="gsm">GSM</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="gsm" name="gsm" value="<c:out value="${gsmVorige}"/>" required > </p>
-            <p><label for="email">Email</label><input type="email" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,50}$" id="email" name="email" value="<c:out value="${emailVorige}"/>" required></p>
+            <p><label for="firstName">First Name</label><input type="text"  id="firstName" name="firstName" value="<c:out value="${voornaamVorige}"/>" required></p>
+            <p><label for="lastName">Last Name</label><input type="text" required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$" id="lastName" name="lastName" value="<c:out value="${naamVorige}"/>" required></p>
+            <p><label for="hour">Hour</label><input type="text" required pattern ="(2[0-3]|[01][0-9]):[0-5][0-9]" id="hour" name="hour" value="<c:out value="${uurVorige}"/>" required></p>
+            <p><label for="date">Date</label><input type="text" required pattern ="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" id="date" name="date" value="<c:out value="${dateVorige}"/>" required></p>
+            <p><label for="gsm">GSM</label><input type="text" required pattern ="[0-9]{9,10}" id="gsm" name="gsm" value="<c:out value="${gsmVorige}"/>" required></p>
+            <p><label for="email">Email</label><input type="email" required pattern ="^[A-Za-z0-9+_.-]+@(.+)$" id="email" name="email" value="<c:out value="${emailVorige}"/>" required></p>
             <label for="fitness">Choose a fitness:</label>
 
             <select name="fitness" id="fitness">
@@ -71,7 +74,7 @@
                 <option value="Ring">Ring</option>
                 <option value="Heverlee">Heverlee</option>
             </select>
-            <p><input type="submit" id="contact" value="Contact"></p>
+            <p><input type="submit" id="contact" value="add Contact"></p>
         </form>
         </c:if>
         <caption>Contacts</caption>
@@ -92,6 +95,7 @@
 
         document.addEventListener("submit", finalValidation, false);
     }
+
 
     function finalValidation(event) {
         let fields = event.target.elements;

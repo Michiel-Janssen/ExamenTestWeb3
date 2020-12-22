@@ -2,10 +2,12 @@ package domain.db.coronapositive;
 
 import domain.db.DbException;
 import domain.model.CoronaPositiveModel;
+import domain.model.Person;
 
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 public interface CoronaPositiveDB {
     /**
@@ -23,7 +25,11 @@ public interface CoronaPositiveDB {
      * @throws DbException if something went wrong
      */
 
-    List<CoronaPositiveModel> getAll();
+    //List<CoronaPositiveModel> getAll();
 
-    List<CoronaPositiveModel> getAllFiltered(Timestamp from, Timestamp until);
+    Map<Timestamp, Person> getAllFiltered(Timestamp from, Timestamp until);
+
+    Map<Timestamp, Person> getAllFilteredWithPerson(Timestamp from, Timestamp until, String id);
+
+    Map<Timestamp, Person> getAll();
 }

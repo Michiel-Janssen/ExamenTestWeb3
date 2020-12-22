@@ -24,10 +24,16 @@ public class Contact {
     public Contact() {}
 
     public void setGsm(String gsm) {
+        if(gsm.isEmpty()) {
+            throw new IllegalArgumentException("Phone number isn't valid");
+        }
         this.gsm = gsm;
     }
 
     public void setDate(Timestamp date) {
+        if(date == null) {
+            throw new IllegalArgumentException("No valid date or time");
+        }
         this.date = date;
     }
 
@@ -50,7 +56,7 @@ public class Contact {
 
     public void setFirstName(String firstName) {
         if(firstName.isEmpty()){
-            throw new IllegalArgumentException("No firstname given");
+            throw new IllegalArgumentException("No first name given");
         }
         this.firstName = firstName;
     }

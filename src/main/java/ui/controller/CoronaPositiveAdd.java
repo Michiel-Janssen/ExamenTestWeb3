@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,9 @@ public class CoronaPositiveAdd extends RequestHandler {
         if (errors.size() == 0) {
             try {
                 service.addCoronaPositive(coronaPositiveModel);
-                response.sendRedirect("Controller?command=Index");
-            } catch (DbException e) {
+                request.setAttribute("Gelukt", "Succesvol een positive corona test doorgegeven");
+                request.getRequestDispatcher("Controller?command=Index").forward(request, response);
+            } catch (DbException | ServletException e) {
                 errors.add(e.getMessage());
             }
         } else {
@@ -36,14 +38,14 @@ public class CoronaPositiveAdd extends RequestHandler {
                 request.setAttribute("errors", errors);
                 request.getRequestDispatcher("Controller?command=CoronaPositive_Pag").forward(request, response);
             } catch (ServletException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
 
     }
 
     private void setDate(CoronaPositiveModel coronaPositiveModel, HttpServletRequest request, List<String> result) {
-        String date = request.getParameter("date");
+        Timestamp date = Timestamp.valueOf(request.getParameter("date"));
         request.setAttribute("lastDate", date);
         try {
             coronaPositiveModel.setDate(date);

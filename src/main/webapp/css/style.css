@@ -44,13 +44,12 @@ nav ul li a{
 }
 
 nav ul li a:hover {
+	background-color: #AFBE2F;
+}
+
+a.active {
 	background-color: #888888;
 }
-
-nav ul li#actual {
-	background-color: #f3dc04;
-}
-
 
 h2, main, footer {
 	padding: 15px 10px;
@@ -94,9 +93,22 @@ form {
 	margin-bottom: 1em;
 	box-sizing: border-box;
 }
+
 .alert-danger ul {
 	list-style-type: none;
 }
+
+.alert-feedback {
+	padding: 0.5em;
+	background-color: #ceffb7;
+	border: 1px solid #4CAF50;
+	color: #4CAF50;
+	border-radius: 3px;
+	width: 100%;
+	margin: 1em 1em 1em 0;
+	box-sizing: border-box;
+}
+
 label,input,textarea {
 	margin-bottom: 16px;
 }
@@ -116,7 +128,6 @@ input,textarea {
 	box-shadow: inset 0px 1px 4px #d59392;
 }
 
-
 /* mobile first */
 div#container {
 	width: 95%;
@@ -129,6 +140,10 @@ nav ul li {
 
 nav ul li:first-child {
 	border-top: 1px solid #303d11;
+}
+
+a.active {
+	background-color: #888888;
 }
 
 label,input,textarea {
@@ -174,12 +189,18 @@ input {
 		text-align: center;
 	}
 	nav ul li a:hover {
+		background-color: #AFBE2F;
+	}
+	a.active {
 		background-color: #888888;
 	}
 	footer {
 		text-align: right;
 	}
 	.alert-danger {
+		width: 614px;
+	}
+	.alert-feedback {
 		width: 614px;
 	}
 	label,input,textarea {

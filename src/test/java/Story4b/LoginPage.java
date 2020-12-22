@@ -49,4 +49,10 @@ public class LoginPage extends Page {
     public boolean hasStickyUserid(String userid) {
         return userid.equals(useridField.getAttribute("value"));
     }
+
+    public void logIn(String userid, String password) {
+        useridField.sendKeys(userid);
+        passwordField.sendKeys(password);
+        logInButton.click();
+    }
 }
