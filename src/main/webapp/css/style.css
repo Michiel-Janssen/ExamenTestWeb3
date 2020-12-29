@@ -7,8 +7,8 @@
 body {
 	font-family: arial,sans-serif;
 	font-size: 90%;
-	color: #303d11;
-	background-color: #303d11;
+	color: #525252;
+	background-color: #525252;
 }
 
 div#container {
@@ -18,12 +18,12 @@ div#container {
 }
 
 footer {
-	background-color: #b99703;
+	background-color: #9c9c9c;
 }
 
 nav ul {
 	list-style: none;
-	background-color: #b99703;
+	background-color: #9c9c9c;
 	box-sizing: border-box;
 	margin-bottom: 1em;
 }
@@ -38,7 +38,7 @@ nav ul li {
 }
 
 nav ul li a{
-	color: #303d11;
+	color: #525252;
 	text-decoration: none;
 	display: block;
 }
@@ -56,7 +56,7 @@ h2, main, footer {
 }
 
 h1 {
-	background-image: url("../images/bannerKlein.png");
+	background-image: url("../images/abf_banner.jpg");
 	height: 100px;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -135,11 +135,11 @@ div#container {
 
 nav ul li {
 	display: block;
-	border-bottom: 1px solid #303d11;
+	border-bottom: 1px solid #525252;
 }
 
 nav ul li:first-child {
-	border-top: 1px solid #303d11;
+	border-top: 1px solid #525252;
 }
 
 a.active {
@@ -163,7 +163,7 @@ input {
 		max-width: 1000px;
 	}
 	h1 {
-		background-image: url("../images/banner.png");
+		background-image: url("../images/abf_banner.jpg");
 	}
 
 	nav ul {

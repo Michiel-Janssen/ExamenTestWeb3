@@ -2,6 +2,9 @@ package Story4b;
 
 import org.openqa.selenium.WebDriver;
 
+//Lucas Hendrickx
+//Michiel Janssen
+
 public abstract class Page {
 
     WebDriver driver;

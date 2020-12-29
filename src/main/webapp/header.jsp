@@ -14,6 +14,7 @@
         <c:if test="${user.role=='ADMIN'}">
             <li><a href="Controller?command=Register_Pag">Register</a></li>
         </c:if>
+        <li><a href="Controller?command=Register_Pag">Register</a></li>
     </ul>
 </nav>
 </div>
