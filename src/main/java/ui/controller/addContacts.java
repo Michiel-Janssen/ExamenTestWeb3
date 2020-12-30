@@ -3,11 +3,13 @@ package ui.controller;
 import domain.db.DbException;
 import domain.model.Contact;
 import domain.model.DomainException;
+import domain.model.Person;
 import domain.model.Role;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class addContacts extends RequestHandler {
         List<String> errors = new ArrayList<String>();
         Contact contact = new Contact();
 
+        setPersonId(contact, request, errors);
         setFirstName(contact, request, errors);
         setLastName(contact, request, errors);
         setDate(contact, request, errors);
@@ -31,7 +34,9 @@ public class addContacts extends RequestHandler {
 
         if (errors.size() == 0) {
             try {
+                System.out.println("Service?");
                 service.addContact(contact);
+                System.out.println("Yes");
                 clearPreviousValues(request);
                 request.setAttribute("gelukt", "Succesvol een contact toegevoegd");
                 request.getRequestDispatcher("Controller?command=Contacts").forward(request, response);
@@ -48,6 +53,7 @@ public class addContacts extends RequestHandler {
         }
     }
 
+
     private void clearPreviousValues(HttpServletRequest request) {
         request.removeAttribute("voornaamVorige");
         request.removeAttribute("naamVorige");
@@ -58,6 +64,12 @@ public class addContacts extends RequestHandler {
     }
 
     //Setters
+
+    private void setPersonId(Contact contact, HttpServletRequest request, List<String> errors) {
+        HttpSession session = request.getSession();
+        String personId = ((Person) session.getAttribute("user")).getUserid();
+        contact.setPersonId(personId);
+    }
 
     private void setGSM(Contact contact, HttpServletRequest request, List<String> errors) {
         String gsm = request.getParameter("gsm");

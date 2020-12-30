@@ -33,7 +33,7 @@ public class PersonDBSQL implements PersonDB {
             throw new DbException("Nothing to add.");
         }
 
-        //String sql = String.format("INSERT INTO * from %s.person (id, firstname, lastname, password, email, role) VALUES (?, ?, ?, ?, ?, ?", this.schema);
+        //String sql = String.format("INSERT INTO * from %s.person (id, firstname, lastname, password, email, role) VALUES (?, ?, ?, ?, ?, ?)", this.schema);
 
         try {
             PreparedStatement statementSQL = connection.prepareStatement("INSERT INTO \"web3_project_r0789294\".person (\"id\", \"firstname\", \"lastname\", \"password\", \"email\", \"role\") VALUES (?,?,?,?,?,?)");

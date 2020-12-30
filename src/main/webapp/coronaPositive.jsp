@@ -38,7 +38,7 @@
         <form method="POST" action="Controller?command=CoronaPositiveAdd" novalidate="novalidate">
             <!-- novalidate in order to be able to run tests correctly -->
             <p><label for="id">Id</label><input type="text" id="id" name="id" value="<c:out value="${lastId}"/>" required> </p>
-            <p><label for="date">Date</label><input type="text" id="date" name="date" value="<c:out value="${lastDate}"/>" required> </p>
+            <p><label for="date">Date</label><input type="date" id="date" name="date" value="<c:out value="${lastDate}"/>" required> </p>
             <p><input type="submit" id="confirm" value="Confirm"></p>
         </form>
     </main>

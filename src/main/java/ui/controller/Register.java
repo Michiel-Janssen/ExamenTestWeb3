@@ -15,6 +15,9 @@ import java.util.List;
 public class Register extends RequestHandler {
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, NotAuthorizedException, ServletException {
+        Role[] roles = {Role.ADMIN};
+        Utility.checkRole(request, roles);
+
         List<String> errors = new ArrayList<String>();
         Person person = new Person();
 

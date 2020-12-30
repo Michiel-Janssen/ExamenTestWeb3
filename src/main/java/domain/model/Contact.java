@@ -11,14 +11,23 @@ public class Contact {
     private String fitness;
     private Timestamp date;
     private String gsm;
+    private String personId;
 
-    public Contact(String firstName, String lastName, String email, Timestamp date, String gsm, String fitness) {
+    public Contact(String personId, String firstName, String lastName, String email, Timestamp date, String gsm, String fitness) {
+        setPersonId(personId);
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
         setDate(date);
         setGsm(gsm);
         setFitness(fitness);
+    }
+
+    public void setPersonId(String personId) {
+        if(personId == null) {
+            throw new IllegalArgumentException("Person id is not valid");
+        }
+        this.personId = personId;
     }
 
     public Contact() {}
@@ -73,6 +82,10 @@ public class Contact {
             throw new IllegalArgumentException("No fitness given");
         }
         this.fitness = fitness;
+    }
+
+    public String getPersonId() {
+        return personId;
     }
 
     public String getFitness() {

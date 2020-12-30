@@ -22,11 +22,12 @@ public class SearchContact extends RequestHandler {
         List<String> errors = new ArrayList<>();
 
         String datum = request.getParameter("datum");
+        String datumMetTijd = datum + " 00:00:00";
 
         if(datum.isEmpty()) {
             errors.add("Vul datum in");
         } else {
-            Timestamp date = Timestamp.valueOf(datum);
+            Timestamp date = Timestamp.valueOf(datumMetTijd);
             for(Contact c : contacts) {
                 if(c.getDate().equals(date)) {
                     activeContacts.add(c);

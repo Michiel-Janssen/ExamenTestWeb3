@@ -2,8 +2,11 @@ package domain.db.contact;
 
 import domain.db.DbException;
 import domain.model.Contact;
+import domain.model.Person;
+import org.openqa.selenium.remote.server.Session;
 import util.DbConnectionService;
 
+import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +34,14 @@ public class ContactDBSQL implements ContactDB {
             throw new DbException("Nothing to add.");
         }
         try {
-            PreparedStatement statementSQL = connection.prepareStatement("INSERT INTO \"web3_project_r0789294\".contact (\"firstname\", \"lastname\", \"email\", \"date\", \"gsm\", \"fitness\") VALUES (?,?,?,?,?,?)");
-            statementSQL.setString(1, contact.getFirstName());
-            statementSQL.setString(2, contact.getLastName());
-            statementSQL.setString(3, contact.getEmail());
-            statementSQL.setObject(4, contact.getDate());
-            statementSQL.setString(5, contact.getGsm());
-            statementSQL.setString(6, contact.getFitness());
+            PreparedStatement statementSQL = connection.prepareStatement("INSERT INTO \"web3_project_r0789294\".contact (\"id\", \"firstname\", \"lastname\", \"email\", \"date\", \"gsm\", \"fitness\") VALUES (?,?,?,?,?,?,?)");
+            statementSQL.setString(1, contact.getPersonId());
+            statementSQL.setString(2, contact.getFirstName());
+            statementSQL.setString(3, contact.getLastName());
+            statementSQL.setString(4, contact.getEmail());
+            statementSQL.setObject(5, contact.getDate());
+            statementSQL.setString(6, contact.getGsm());
+            statementSQL.setString(7, contact.getFitness());
             statementSQL.execute();
             System.out.println(statementSQL);
         } catch (SQLException e) {
@@ -58,13 +62,14 @@ public class ContactDBSQL implements ContactDB {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
+                String personId = result.getString("id");
                 String firstName = result.getString("firstname");
                 String lastName = result.getString("lastname");
                 String email = result.getString("email");
                 Timestamp date = result.getObject("date", Timestamp.class);
                 String gsm = result.getString("gsm");
                 String fitness = result.getString("fitness");
-                Contact contact = new Contact(firstName, lastName, email, date, gsm, fitness);
+                Contact contact = new Contact(personId, firstName, lastName, email, date, gsm, fitness);
                 contacten.add(contact);
             }
         } catch (SQLException e) {
@@ -131,13 +136,14 @@ public class ContactDBSQL implements ContactDB {
             statementSql.setString(1, email);
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
+                String personId = result.getString("id");
                 String firstName = result.getString("firstname");
                 String lastName = result.getString("lastname");
                 String Email = result.getString("email");
                 Timestamp date = result.getObject("date", Timestamp.class);
                 String gsm = result.getString("gsm");
                 String fitness = result.getString("fitness");
-                Contact c = new Contact(firstName, lastName, Email, date, gsm, fitness);
+                Contact c = new Contact(personId, firstName, lastName, Email, date, gsm, fitness);
                 contacts.add(c);
             }
         } catch (SQLException throwables) {

@@ -42,7 +42,7 @@
             </c:forEach>
             <form method="POST" action="Controller?command=SearchContact" novalidate="novalidate">
                 <!-- novalidate in order to be able to run tests correctly -->
-                <p><label for="datum">Date + Time</label><input type="text" id="datum" name="datum" value="${lastDate}" required> </p>
+                <p><label for="datum">Date</label><input type="text" id="datum" name="datum" value="${lastDate}" required> </p>
             </form>
         </c:if>
         <c:if test="${user.role=='CUSTOMER'}">
