@@ -22,7 +22,7 @@ public class LoginPage extends Page {
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        this.driver.get(getPath()+"?command=Login");
+        this.driver.get(getPath()+"?command=Index");
     }
 
     public void setUseridField(String userid) {

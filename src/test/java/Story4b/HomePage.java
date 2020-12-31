@@ -25,7 +25,7 @@ public class HomePage extends Page {
     }
 
     public boolean containsWelkomText(String welkomTekst) {
-        String foundName = this.driver.findElement(By.cssSelector("h2")).getText();
+        String foundName = this.driver.findElement(By.xpath("//*[@id=\"container\"]/main/h2")).getText();
         boolean found = false;
         if(foundName.equals(welkomTekst)) {
             found=true;
@@ -37,5 +37,14 @@ public class HomePage extends Page {
         useridField.sendKeys(userid);
         passwordField.sendKeys(password);
         logInButton.click();
+    }
+
+    public boolean homePageContainsLogOutMessage(String logoutTekst) {
+        String foundName = this.driver.findElement(By.xpath("//*[@id=\"container\"]/main/p")).getText();
+        boolean found = false;
+        if(foundName.equals(logoutTekst)) {
+            found=true;
+        }
+        return found;
     }
 }

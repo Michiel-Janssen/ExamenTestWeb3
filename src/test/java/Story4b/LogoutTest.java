@@ -1,5 +1,5 @@
-import Story4b.AddContactPage;
-import Story4b.LoginPage;
+package Story4b;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,19 +8,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class popularFitnessTest {
+public class LogoutTest {
     private WebDriver driver;
     private String path = "http://localhost:8080/Controller";
 
     @Before
     public void setUp() {
-        //System.setProperty("webdriver.chrome.driver", "/Users/.../web3pers/chromedriver");
-        // windows: gebruik dubbele \\ om pad aan te geven
-        // hint: zoek een werkende test op van web 2 ...
         System.setProperty("webdriver.chrome.driver", "C:\\School\\WebHulpProgramma's\\chromedriver.exe");
         driver = new ChromeDriver();
-        driver.get(path+"?command=Overview");
     }
 
     @After
@@ -29,16 +26,19 @@ public class popularFitnessTest {
     }
 
     @Test
-    public void shows_contacts_page() {
+    public void test_All_Fields_Are_Filled_In_Correct_Logs_In_And_Then_Out() {
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
         loginPage.setUseridField("r0789294");
         loginPage.setPasswordField("t");
 
-        AddContactPage addContactPage = PageFactory.initElements(driver, AddContactPage.class);
+        HomePage homePage = loginPage.submitValid();
 
-        driver.navigate().to("http://localhost:8080/Controller?command=Contacts");
+        assertEquals("Home", homePage.getTitle());
 
-        String title = driver.getTitle();
-        assertEquals("Contacts",title);
+        AccountPageUser accountPageUser = PageFactory.initElements(driver, AccountPageUser.class);
+        accountPageUser.hasLogOutButton();
+        accountPageUser.clickLogOut();
+        assertEquals("Home", homePage.getTitle());
+        assertTrue(homePage.homePageContainsLogOutMessage("Succesvol uitgelogd"));
     }
 }

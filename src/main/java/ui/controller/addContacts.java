@@ -34,11 +34,9 @@ public class addContacts extends RequestHandler {
 
         if (errors.size() == 0) {
             try {
-                System.out.println("Service?");
                 service.addContact(contact);
-                System.out.println("Yes");
                 clearPreviousValues(request);
-                request.setAttribute("gelukt", "Succesvol een contact toegevoegd");
+                request.setAttribute("gelukt", "Contact succesvol toegevoegd");
                 request.getRequestDispatcher("Controller?command=Contacts").forward(request, response);
             } catch (DbException | IOException | ServletException e) {
                 errors.add(e.getMessage());
@@ -52,7 +50,6 @@ public class addContacts extends RequestHandler {
             }
         }
     }
-
 
     private void clearPreviousValues(HttpServletRequest request) {
         request.removeAttribute("voornaamVorige");

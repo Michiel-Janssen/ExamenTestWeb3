@@ -38,4 +38,13 @@ public class ContactsPage extends Page {
         }
         return found;
     }
+
+    public boolean containsContactText(String contactTekst) {
+        String foundName = this.driver.findElement(By.xpath("//*[@id=\"container\"]/main/p[1]")).getText();
+        boolean found = false;
+        if(foundName.equals(contactTekst)) {
+            found=true;
+        }
+        return found;
+    }
 }

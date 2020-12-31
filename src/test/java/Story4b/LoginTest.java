@@ -30,6 +30,7 @@ public class LoginTest {
         driver.quit();
     }
 
+
     @Test
     public void test_All_Fields_Are_Filled_In_Correct() {
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
@@ -39,7 +40,7 @@ public class LoginTest {
         HomePage homePage = loginPage.submitValid();
 
         assertEquals("Home", homePage.getTitle());
-        assertTrue(homePage.containsWelkomText("Welcome Michiel, you are registered"));
+        assertTrue(homePage.containsWelkomText("Welcome Admin, you are registered"));
     }
 
 }

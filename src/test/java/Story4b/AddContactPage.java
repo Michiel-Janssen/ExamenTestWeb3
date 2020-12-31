@@ -101,6 +101,8 @@ public class AddContactPage extends Page {
         return email.equals(emailField.getAttribute("value"));
     }
 
+
+
     public boolean hasEmptyFirstName () {
         return firstNameField.getAttribute("value").isEmpty();
     }

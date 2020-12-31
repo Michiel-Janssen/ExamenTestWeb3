@@ -49,7 +49,7 @@ public class AddContactTest {
         addContactPage.pressButton();
 
         ContactsPage overview = PageFactory.initElements(driver, ContactsPage.class);
-        assertTrue(overview.containsName(randomId + "Jan Janssens"));
+        assertTrue(overview.containsContactText("Contact succesvol toegevoegd"));
     }
 
     @Test
